@@ -1,6 +1,6 @@
 <?php 
 require_once 'config.php'; 
-require 'proses.php';
+
 ?>
 
 <!DOCTYPE html>
