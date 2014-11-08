@@ -2,7 +2,7 @@
     
     <div class="col-lg-12">
         <div class="alert alert-info">
-           <i class="glyphicon glyphicon-ok"></i> Selamat datang, <strong>Ardha Herdianto</strong>. Anda login sebagai <ins>Kepala Biro</ins>
+           <i class="glyphicon glyphicon-ok"></i> Selamat datang, <strong><?= get_login('nama') ?></strong>. Anda login sebagai <ins><?= get_login('keterangan') ?></ins>
         </div>
         
         <div class="alert alert-warning">
@@ -124,3 +124,4 @@
         </div>
     </fieldset>
 </div>
+

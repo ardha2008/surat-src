@@ -33,10 +33,22 @@
                               </div>
                               
                               <div class="form-group">
+                                <label class="col-sm-3 control-label">Bagian*</label>
+                                <div class="col-sm-5">
+                                  <select class="form-control" name="bagian">
+                                        <option value="null">pilih</option>
+                                    <?php $data=get_bagian();while($result=mysql_fetch_array($data)){?>
+                                        <option value="<?= $result['idbagian'] ?>"><?= $result['keterangan'] ?></option>
+                                    <?php } ?>
+                                  </select>
+                                </div>
+                              </div>
+                              
+                              <div class="form-group">
                                 <label class="col-sm-3 control-label">Tanggal Lahir*</label>
                                 <div class="col-sm-5">
-                                  <input type="date" name="tl" class="form-control" required="" />
-                                    <small>**) digunakan untuk default password</small>
+                                  <input type="text" id="tl" name="tl" class="form-control" required="" />
+                                    <small>**) Format : tanggal/bulan/tahun</small>
                                 </div>
                               </div>
                         </div>
@@ -51,8 +63,8 @@
             
                     <div class="panel-body">
                         <ol>
-                            <?php for($i=1;$i<=5;$i++){?>
-                                <li>Ardha</li>
+                            <?php $data=get_last_pegawai('created_at',5);while($result=mysql_fetch_array($data)){?>
+                                <li><?= $result['nama'] ?></li>
                             <?php } ?>
                         </ol>
                     </div>
@@ -89,7 +101,7 @@
                     <div class="form-group">                    
                         <div class="col-xs-12">
                         <label>No Telepon</label>
-                        <input type="text" name="telpon" class="form-control" />
+                        <input type="text" name="telepon" class="form-control" />
                         </div>                        
                     </div>
                     

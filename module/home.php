@@ -1,9 +1,17 @@
 <div class="row clearfix">
 		<div class="col-md-9 column">
-			
+            
+            <div class="jumbotron">
+				<h1>NB:</h1>
+				<p>Aplikasi manajemen surat ini dibangun dengan menggunakan Panada Framework. Nama aplikasi <em><strong>belum ditentukan</strong></em> sehingga bebas untuk dikembangkan <br /> <br />A.H</p>
+				<p>
+					<a class="btn btn-primary btn-large" href="#"><i class="fa fa-download"></i> download full source code</a>
+				</p>
+			</div>
+            
             <div class="alert alert-info">
             <p>
-				Aplikasi ini masih dalam tahap pengembangan, Binary  : <strong><?php echo sha1('0,1') ?></strong>.
+				Aplikasi ini masih dalam tahap pengembangan, Binary  : <strong><?php echo sha1('v.2') ?></strong>.
 			</p>
             </div>
             
@@ -52,9 +60,9 @@
     				</div>
                     
     				<div class="panel-body">
-    				        <?php if(isset($message)){
-    				            echo $message;
-    				        } ?>
+    				        <?php if(isset($message)){?>
+    				            <div class="alert alert-danger"><i class="fa fa-warning"></i> Gagal login</div>
+    				        <?php } ?>
             				<div class="form-group">
             					 <input type="text" name="id" value="1134010049" class="form-control"  placeholder="ID" />
             				</div>
