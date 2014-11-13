@@ -7,6 +7,8 @@
         <a href="#"><button class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button></a>
         <div class="clearfix"></div><br />
         
+        <?php if(isset($_SESSION['delete']) && $_SESSION['delete']=='true'){?><div class="alert alert-danger"><i class="fa fa-warning"></i> <strong>Data berhasil dihapus</strong></div><?php unset($_SESSION['delete']); } ?>
+        
             <div class="panel panel-default">
                 <div class="panel-heading"><i class="fa fa-info"></i> Surat Masuk</div>
                 
@@ -63,6 +65,7 @@
                                     <a href="./?page=surat/delete&id=<?php echo $result['idsurat'] ?>"><button class="btn btn-danger"><i class="fa fa-trash"></i> Delete</button></a>
                                 </td>
                             </tr>
+                            
                             <?php } ?>
                         </tbody>
                     </table>

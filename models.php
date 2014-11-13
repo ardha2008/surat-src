@@ -27,10 +27,10 @@ function get_surat($get='all'){
 	case 'all' : $query=mysql_query("select * from surat order by created_at DESC");
 	break;
 
-	case 'masuk' : $query=mysql_query("select * from surat where jenis_surat='masuk' order by created_at DESC");
+	case 'masuk' : $query=mysql_query("select * from surat where jenis_surat='masuk' and `delete`='0' order by created_at DESC");
 	break;
 
-	case 'keluar' : $query=mysql_query("select * from surat where jenis_surat='keluar' order by created_at DESC");
+	case 'keluar' : $query=mysql_query("select * from surat where jenis_surat='keluar' and `delete`='0' order by created_at DESC");
 	break;
 
 	default :
