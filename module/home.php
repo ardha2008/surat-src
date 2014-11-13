@@ -1,13 +1,6 @@
 <div class="row clearfix">
 		<div class="col-md-9 column">
-            
-            <div class="jumbotron">
-				<h1>NB:</h1>
-				<p>Aplikasi manajemen surat ini dibangun dengan menggunakan Panada Framework. Nama aplikasi <em><strong>belum ditentukan</strong></em> sehingga bebas untuk dikembangkan <br /> <br />A.H</p>
-				<p>
-					<a class="btn btn-primary btn-large" href="#"><i class="fa fa-download"></i> download full source code</a>
-				</p>
-			</div>
+           
             
             <div class="alert alert-info">
             <p>
