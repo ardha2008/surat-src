@@ -29,7 +29,7 @@
                             <!--<td>Kepala Biro</td>-->
                             <td>
                                 <a id="<?= $result['idpegawai'] ?>" href="#<?= $result['idpegawai'] ?>" role="button" class="btn" data-toggle="modal"><i class="fa fa-eye"></i></a>
-                                <i class="fa fa-pencil"></i>
+                                <a href="./?page=pegawai/edit&id=<?= $result['idpegawai'] ?>"><i class="fa fa-pencil"></i></a>
                                 <i class="fa fa-trash"></i>
                             </td>
                             </tr>

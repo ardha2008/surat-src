@@ -39,6 +39,15 @@ require_once 'config.php';
 	<script type="text/javascript" src="js/mask.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
+
+    <?php if(isset($_GET['page']) && $_GET['page']=='laporan/index'){?>
+     <script type="text/javascript" src="./fusioncharts/fusioncharts.charts.js"></script>           
+     <script type="text/javascript" src="./fusioncharts/fusioncharts.js"></script>
+     <script type="text/javascript" src="./fusioncharts/fusioncharts.powercharts.js"></script>
+     <script type="text/javascript" src="./fusioncharts/fusioncharts.gantt.js"></script>
+     <script type="text/javascript" src="./fusioncharts/fusioncharts.maps.js"></script>
+     <script type="text/javascript" src="./fusioncharts/fusioncharts.widgets.js"></script>
+    <?php } ?>
     
         <!--DATATABLES-->
     <link href="css/jquery.dataTables.min.css" rel="stylesheet" />
@@ -69,10 +78,10 @@ jQuery(function($){
                         <?php if(isset($_SESSION['login']) && $_SESSION['login']==true){?>
                         
 		                <li><a href="./?page=dashboard"><i class="fa fa-home"></i> Dashboard</a></li> 
-                        <li><a href="./?page=surat/index"><i class="fa fa-book"></i> Surat</a></li>
+                        <li><a href="./?page=surat/index"><i class="fa fa-envelope"></i> Surat</a></li>
                         <li><a href="./?page=pegawai/index"><i class="fa fa-users"></i> Pegawai</a></li>  
-					    <li><a href="./?page=dashboard"><i class="fa fa-info"></i> Pengumuman</a></li>
-                        <li><a href="./?page=dashboard"><i class="fa fa-cloud"></i> Singkronisasi</a></li>
+					    <li><a href="./?page=laporan/index"><i class="fa fa-book"></i> Laporan</a></li>
+                        <li><a href="./?page=import/index"><i class="fa fa-cloud"></i> Import</a></li>
                         <?php }else{?>
 					    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
                         <li><a href="#"><i class="fa fa-search"></i> Pencarian</a></li>

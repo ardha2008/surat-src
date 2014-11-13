@@ -71,7 +71,7 @@
             				</div>			
     				</div>
     				<div class="panel-footer">
-    					<button type="submit" name="login" class="btn btn-default"><i class="fa fa-sign-in"></i> Login</button>
+    					<button type="submit" name="login" class="btn btn-default btn-block"><i class="fa fa-sign-in"></i> Login</button>
     				</div>
     			</div>
             </form>

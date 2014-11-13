@@ -4,11 +4,11 @@
         <div class="alert alert-info">
            <i class="glyphicon glyphicon-ok"></i> Selamat datang, <strong><?= get_login('nama') ?></strong>. Anda login sebagai <ins><?= get_login('keterangan') ?></ins>
         </div>
-        
+        <!--
         <div class="alert alert-warning">
            <i class="fa fa-info"></i> Perangkat <strong><ins>android-2bab7a15</ins></strong> mencoba melakukan singkronisasi, <a href="#">terima</a> atau abaikan
         </div>
-        
+        -->
     </div>
 
     <div class="col-md-4">
@@ -19,11 +19,9 @@
             
             
                 <ul class="list-group">
-                  <li class="list-group-item"><i class="fa fa-envelope"></i> Pengajuan dana UKM Sepak Bola <span class="badge">Penting!</span></li>
-                  <li class="list-group-item"><i class="fa fa-envelope"></i> Permohonan penelitian Tugas Akhir</li>
-                  <li class="list-group-item"><i class="fa fa-envelope-o"></i> Seminar Rektorak 2014</li>
-                  <li class="list-group-item"><i class="fa fa-envelope"></i> Pemilihan Badan Eksekutif Maha...</li>
-                  <li class="list-group-item"><i class="fa fa-envelope"></i> Rapat Staff Kermawa</li>
+                <?php $data=get_surat_row('masuk','5');while($value=mysql_fetch_array($data)){?>
+                    <li class="list-group-item"><i class="fa fa-envelope"></i> <?php echo $value['perihal'] ?> </li>
+                <?php } ?>
                 </ul>
                 
             <div class="panel-footer">
@@ -39,13 +37,12 @@
                 <i class="fa fa-info"></i> Surat Keluar 
             </div>
             
-            
                 <ul class="list-group">
-                  <li class="list-group-item"><i class="fa fa-envelope"></i> Pengajuan dana UKM Sepak Bola <span class="badge">Penting!</span></li>
-                  <li class="list-group-item"><i class="fa fa-envelope"></i> Permohonan penelitian Tugas Akhir</li>
-                  <li class="list-group-item"><i class="fa fa-envelope-o"></i> Seminar Rektorak 2014</li>
-                  <li class="list-group-item"><i class="fa fa-envelope"></i> Pemilihan Badan Eksekutif Maha...</li>
-                  <li class="list-group-item"><i class="fa fa-envelope"></i> Rapat Staff Kermawa</li>
+                  
+                    <?php $data=get_surat_row('keluar','5');while($value=mysql_fetch_array($data)){?>
+                    <li class="list-group-item"><i class="fa fa-envelope"></i> <?php echo $value['perihal'] ?> </li>
+                    <?php } ?>
+               
                 </ul>
                 
             <div class="panel-footer">
@@ -61,31 +58,11 @@
                 <div class="panel-title"><i class="fa fa-th"></i> Login terakhir</div>
             </div>
             
-            <div class="panel-body">
-            
-                <ul class="media-list">
-                  <li class="media">
-                    <a class="pull-left" href="#">
-                      <img class="media-object" src="img/nophoto.jpg" alt="..."/>
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Ardha Herdianto <br /><small>Kepala Biro</small></h4>
-                      03:23 / 24 September 2014 
-                    </div>
-                  </li>
-                  <hr />
-                  <li class="media">
-                    <a class="pull-left" href="#">
-                      <img class="media-object" src="img/nophoto.jpg" alt="..."/>
-                    </a>
-                    <div class="media-body">
-                      <h4 class="media-heading">Budi Heru <br /><small>Kepala Bagian</small></h4>
-                      03:23 / 24 September 2014 
-                    </div>
-                  </li>
+                <ul class="list-group">
+                    <?php $data=get_last_login();while($logs=mysql_fetch_array($data)){?>
+                    <li class="list-group-item"><i class="fa fa-users"></i> <?php echo $logs['nama'] ?> [ <?php echo $logs['time']?> ]</li>
+                    <?php } ?>
                 </ul>
-            
-            </div>
             
             <div class="panel-footer">
                 <button class="btn btn-default">More ...</button>
@@ -95,7 +72,7 @@
     </div>
     
     <div class="clearfix"></div>
-    
+<!--    
     <fieldset>
         <legend>Pengumuman</legend>
         
@@ -125,3 +102,4 @@
     </fieldset>
 </div>
 
+-->

@@ -37,6 +37,10 @@ if(isset($_POST['login'])){
         $_SESSION['idusers']=$result['idusers'];
         $_SESSION['login']=true;
         
+        $catch=$_SESSION['idusers'];
+        
+        mysql_query("insert into logs (idusers) values ('$catch')");
+        
         header('Location:./?page=dashboard');
     }else{
         $message='Gagal Login';
@@ -133,7 +137,7 @@ if(isset($_POST['tambah_bagian'])){
 }
 
 //=================================================================
-//=========================PROSES TAMBAH BAGIAN====================
+//=========================PROSES TAMBAH SURAT=====================
 //=================================================================
 
 if(isset($_POST['tambah_surat'])){
@@ -141,13 +145,98 @@ if(isset($_POST['tambah_surat'])){
     $jenis_surat=$_POST['jenis_surat'];
     $tanggal_surat=$_POST['tanggal_surat'];
     $perihal=$_POST['perihal'];
+    $publikasi=$_POST['publikasi'];
     
+    $disposisi=$_POST['disposisi'];
     $catatan=$_POST['catatan'];
     $asal_surat=$_POST['asal_surat'];
     $keyword=$_POST['keyword'];
     $posting=get_login('nama');
     
-    $query=mysql_query("insert into surat values ('$id','$jenis_surat','$tanggal_surat','$perihal','$catatan','$asal_surat','$keyword','0','$posting','')") or die(mysql_error());
+  //  print_r($_FILES['lampiran']);
+   // exit();  
+      
+    if(isset($_FILES['lampiran']['tmp_name'])){
+        $new_name=random().'.jpeg';
+    
+        $target_path = './img/surat/';
+        $target_path = $target_path . basename($new_name); 
+        $foto=$new_name;
+        
+        if(move_uploaded_file($_FILES['lampiran']['tmp_name'], $target_path)) {
+            
+        } else{
+            $failed=1;
+            $foto='nophoto.jpg';
+        }
+    }else{
+        $foto='nophoto.jpg';
+    }
+    
+    $query=mysql_query("INSERT INTO surat (idsurat, jenis_surat, tanggal_surat, perihal, catatan, asal_surat,disposisi,kata_kunci,posting,public,lampiran) VALUES ('$id', '$jenis_surat', '$tanggal_surat', '$perihal', '$catatan', '$asal_surat','$disposisi','$keyword','$posting','$publikasi','$foto')") or die(mysql_error());
+    
+    if($query){
+        $success=1;
+    }
+/**
+ *  CATATAN : LAMPIRAN AKAN DIBUAT DINAMIK;
+ * Saat ini cuma ada 1 lampiran, next update beberapa lampiran
+ * v.1.1 
+ */
+ 
+    
+}
+
+//=================================================================
+//=========================UPDATE TAMBAH SURAT=====================
+//=================================================================
+
+if(isset($_POST['update_surat'])){
+    $id=$_POST['idsurat'];
+    $jenis_surat=$_POST['jenis_surat'];
+    $tanggal_surat=$_POST['tanggal_surat'];
+    $perihal=$_POST['perihal'];
+    $publikasi=$_POST['publikasi'];
+    
+    $disposisi=$_POST['disposisi'];
+    $catatan=$_POST['catatan'];
+    $asal_surat=$_POST['asal_surat'];
+    $keyword=$_POST['keyword'];
+    $posting=get_login('nama');
+    
+  //  print_r($_FILES['lampiran']);
+   // exit();  
+      
+    if(isset($_FILES['lampiran']['tmp_name'])){
+        $new_name=random().'.jpeg';
+    
+        $target_path = './img/surat/';
+        $target_path = $target_path . basename($new_name); 
+        $foto=$new_name;
+        
+        if(move_uploaded_file($_FILES['lampiran']['tmp_name'], $target_path)) {
+            
+        } else{
+            $failed=1;
+            $foto='nophoto.jpg';
+        }
+    }else{
+        $foto='nophoto.jpg';
+    }
+    
+    $query="UPDATE surat SET 
+    jenis_surat='$jenis_surat', 
+    tanggal_surat='$tanggal_surat',
+    perihal='$perihal',
+    disposisi='$disposisi',
+    public='$publikasi',
+    catatan='$catatan',
+    asal_surat='$asal_surat',
+    kata_kunci='$keyword',
+    posting='$posting'
+    WHERE idsurat='$id'";
+    $query=mysql_query($query) or die(mysql_error());
+    
     if($query){
         $success=1;
     }
