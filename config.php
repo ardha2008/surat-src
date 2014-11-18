@@ -3,6 +3,9 @@
 session_start();
 ob_start();
 
+//===DEFINISI======================
+define('nama_aplikasi','Surat Keluar Masuk');
+
 //error_reporting(0);
 //===============================================
 //==============DATABASE CONFIG==================
@@ -22,6 +25,10 @@ mysql_select_db($db, $koneksi) or die('select database');
 require 'models.php';
 require 'proses.php';
 
+//===========MOBILE DETECT=============
+require_once 'lib/Mobile_Detect.php';
 
+$diakses=new Mobile_Detect;
+//=====================================
 
 ?>

@@ -1,5 +1,9 @@
 <?php
 
+//function lock($hak_akses){
+//    if(get_login('idbagian') != $hak_akses) exit('Restricted');
+//}
+//
 function encrypt($string=null){
    // if($string==null) exit('Cek parameter');
     
@@ -143,7 +147,10 @@ if(isset($_POST['tambah_bagian'])){
 if(isset($_POST['tambah_surat'])){
     $id=$_POST['idsurat'];
     $jenis_surat=$_POST['jenis_surat'];
+    
     $tanggal_surat=$_POST['tanggal_surat'];
+    //$tanggal_surat=explode('/',$tanggal_surat);
+    
     $perihal=$_POST['perihal'];
     $publikasi=$_POST['publikasi'];
     
@@ -151,7 +158,7 @@ if(isset($_POST['tambah_surat'])){
     $catatan=$_POST['catatan'];
     $asal_surat=$_POST['asal_surat'];
     $keyword=$_POST['keyword'];
-    $posting=get_login('nama');
+    $posting=get_login('idusers');
     
   //  print_r($_FILES['lampiran']);
    // exit();  
@@ -274,5 +281,43 @@ if(isset($_POST['change-password'])){
     }
 
 }
- 
+
+//=================================================================
+//=========================CARI LAPORAN============================
+//=================================================================
+
+if(isset($_POST['cari_laporan'])){
+    $tanggal_awal=$_POST['tanggal_awal'];
+    $bulan_awal=$_POST['bulan_awal'];
+    $tahun_awal=$_POST['tahun_awal'];    
+
+    $tanggal_akhir=$_POST['tanggal_akhir'];
+    $bulan_akhir=$_POST['bulan_akhir'];
+    $tahun_akhir=$_POST['tahun_akhir'];
+    
+    $dari="$tahun_awal-$bulan_awal-$tanggal_awal";
+    $sampai="$tahun_akhir-$bulan_akhir-$tanggal_akhir";
+    //echo $dari.'Sampai'.$sampai;
+    
+    $berdasar=$_POST['berdasar'];
+    //$result=cari_laporan($dari,$sampai,$berdasar);
+    $query=mysql_query("select * from surat where $berdasar between '$dari' and '$sampai' and `delete`='0'");
+}
+
+//=================================================================
+//=========================PUBLIKASI===============================
+//=================================================================
+if(isset($_GET['publikasi']) && isset($_GET['id'])){
+    $publikasi=$_GET['publikasi'];
+    $id=$_GET['id'];
+    
+    $proses=mysql_query("update surat set public='$publikasi' where idsurat='$id'") or die(mysql_error());
+    if($proses){
+        header('Location:./?page=surat/index');
+    }else{
+        mysql_error();
+    }
+}
+
 ?>
+

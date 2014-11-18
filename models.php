@@ -1,7 +1,7 @@
 <?php 
 
 function get_pegawai($order_by='created_at'){
-    $query=mysql_query("select * from pegawai order by $order_by DESC");
+    $query=mysql_query("select * from pegawai a, users b, bagian c where b.idusers=a.idpegawai and b.idbagian=c.idbagian order by $order_by DESC");
     return $query;
 }
 
@@ -81,4 +81,9 @@ function rasio($jenis_surat='keluar'){
     return $result['jumlah'];
 }
 
+//==================================LAPORAN LAPORAN==============================================================
+function cari_laporan($dari,$sampai,$berdasar='surat'){
+    $query=mysql_query("select * from surat where tanggal_surat between '$dari' and '$sampai' and `delete`='0' ");
+    return $query;   
+}
 ?>

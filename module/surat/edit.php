@@ -1,3 +1,9 @@
+<script>
+jQuery(function($){
+   $("#tl").mask("9999/99/99");
+});
+</script>
+
 <?php 
 if(isset($_GET['id'])){ 
     $id=$_GET['id'];

@@ -3,7 +3,7 @@
 	<div class="col-md-12">
     <a href="./?page=pegawai/tambah"><button class="btn btn-default"><i class="fa fa-plus"></i> Tambah</button></a>
     <div class="clearfix"></div><br />
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading"><i class="fa fa-th"></i> <strong>Daftar Pegawai</strong></div>
             <div class="panel-body">
             
@@ -28,9 +28,9 @@
                             <td><?= $result['nama'] ?></td>
                             <!--<td>Kepala Biro</td>-->
                             <td>
-                                <a id="<?= $result['idpegawai'] ?>" href="#<?= $result['idpegawai'] ?>" role="button" class="btn" data-toggle="modal"><i class="fa fa-eye"></i></a>
-                                <a href="./?page=pegawai/edit&id=<?= $result['idpegawai'] ?>"><i class="fa fa-pencil"></i></a>
-                                <i class="fa fa-trash"></i>
+                                <a id="<?= $result['idpegawai'] ?>" href="#<?= $result['idpegawai'] ?>" role="button" class="btn" data-toggle="modal"><button class="btn btn-default"><i class="fa fa-eye"></i></button></a>
+                                <a href="./?page=pegawai/edit&id=<?= $result['idpegawai'] ?>"><button class="btn btn-default"><i class="fa fa-pencil"></i></button></a>
+                                <a href="./?page=pegawai/edit&id=#"><button class="btn btn-default"><i class="fa fa-trash"></i></button></a>
                             </td>
                             </tr>
                             

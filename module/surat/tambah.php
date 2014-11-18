@@ -1,3 +1,9 @@
+<script>
+jQuery(function($){
+   $("#tl").mask("9999/99/99");
+});
+</script>
+
 <div class="row clearfix">
 	
 	<div class="col-md-12">
@@ -54,7 +60,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tanggal Surat</label>
                                 <div class="col-sm-5">
-                                  <input type="text" name="tanggal_surat" id="tl" class="form-control" placeholder="dd/mm/yyyy" required="" />
+                                  <input type="text" name="tanggal_surat" id="tl" class="form-control" placeholder="yyyy/mm/dd" required="" />
                                 </div>
                               </div>
                               

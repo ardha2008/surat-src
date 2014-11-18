@@ -70,7 +70,9 @@ if(isset($_GET['id'])){
                     <div class="panel-heading"><i class="fa fa-th"></i> LAMPIRAN</div>
             
                     <div class="panel-body">
-                        
+                        <div class="thumbnail">
+                            <img src="./img/surat/<?php $result['lampiran'] ?>" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -88,6 +90,7 @@ if(isset($_GET['id'])){
                     </a>
                   </h4>
                 </div>
+                
                 <div id="detail" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
                   <div class="panel-body">
                     <div class="col-sm-6">

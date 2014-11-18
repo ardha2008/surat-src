@@ -1,7 +1,6 @@
 <div class="row clearfix">
-		<div class="col-md-9 column">
-           
-            
+		<?php if(!$diakses->isMobile()){?>
+		  <div class="col-md-9 column">        
             <div class="alert alert-info">
             <p>
 				Aplikasi ini masih dalam tahap pengembangan, Binary  : <strong><?php echo sha1('v.2') ?></strong>.
@@ -43,6 +42,7 @@
 				</div>
 			</div>
 		</div>
+		<?php } ?>
 		<div class="col-md-3 column">
 			<form role="form" method="post">
                 <div class="panel panel-default">
@@ -69,5 +69,24 @@
     			</div>
             </form>
 			
+		</div>
+        
+        <div class="col-md-3 column">
+                <div class="panel panel-primary">
+    				<div class="panel-heading">
+    					<h3 class="panel-title">
+    						<i class="fa fa-warning"></i> <strong>INFO</strong>
+    					</h3>
+    				</div>
+                    
+    				<div class="panel-body">
+                        
+                        <li><strong>Superadmin</strong><br />ID:1134010049<br />password: ardha</li>
+                        <hr />
+                        <li><strong>Kepala Staff</strong><br />ID:1134010050<br />password: ardha</li>
+                        <hr />
+                        <li><strong>Staff</strong><br />ID:1134010051<br />password: ardha</li>
+    				</div>
+    			</div>	
 		</div>
 	</div>

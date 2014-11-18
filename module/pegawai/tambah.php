@@ -1,3 +1,9 @@
+<script>
+jQuery(function($){
+   $("#tl").mask("99/99/9999");
+});
+</script>
+
 <div class="row clearfix">
 	
 	<div class="col-md-12">

@@ -12,7 +12,7 @@
     </div>
 
     <div class="col-md-4">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <i class="fa fa-info"></i> Surat Masuk 
             </div>
@@ -32,7 +32,7 @@
     </div>
     
     <div class="col-md-4">
-        <div class="panel panel-default">
+        <div class="panel panel-primary">
             <div class="panel-heading">
                 <i class="fa fa-info"></i> Surat Keluar 
             </div>

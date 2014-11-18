@@ -7,7 +7,7 @@ require_once 'config.php';
 <html lang="en">
 <head>
   <meta charset="utf-8"/>
-  <title>Pendataan Surat Apps</title>
+  <title><?php echo nama_aplikasi ?></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <meta name="description" content=""/>
   <meta name="author" content="Ardha Herdianto"/>
@@ -55,11 +55,7 @@ require_once 'config.php';
 
 </head>
 
-<script>
-jQuery(function($){
-   $("#tl").mask("99/99/9999");
-});
-</script>
+
 
 <body>
 <div class="container">
@@ -69,7 +65,7 @@ jQuery(function($){
 		<div class="col-md-12 column">
 			<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
 				<div class="navbar-header">
-					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <a class="navbar-brand" href="./">E-Letter - Surat Keluar Masuk</a>
+					 <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> <span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button> <div class="navbar-brand"><?php echo nama_aplikasi ?></div>
 				</div>
 				
 				<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -79,12 +75,21 @@ jQuery(function($){
                         
 		                <li><a href="./?page=dashboard"><i class="fa fa-home"></i> Dashboard</a></li> 
                         <li><a href="./?page=surat/index"><i class="fa fa-envelope"></i> Surat</a></li>
-                        <li><a href="./?page=pegawai/index"><i class="fa fa-users"></i> Pegawai</a></li>  
-					    <li><a href="./?page=laporan/index"><i class="fa fa-book"></i> Laporan</a></li>
-                        <li><a href="./?page=import/index"><i class="fa fa-cloud"></i> Import</a></li>
+                        
+                          
+					    <?php if(get_login('idbagian')>=2){?>
+                            <li><a href="./?page=pegawai/index"><i class="fa fa-users"></i> Pegawai</a></li>
+					       <li><a href="./?page=laporan/index"><i class="fa fa-book"></i> Laporan</a></li>
+					    <?php } ?>
+                        
+                        <?php if(get_login('idbagian')==3){?>
+                            <li><a href="./?page=import/index"><i class="fa fa-cloud"></i> Import</a></li>
+                        <?php } ?>
+                        
+                        
                         <?php }else{?>
-					    <li><a href="#"><i class="fa fa-home"></i> Home</a></li>
-                        <li><a href="#"><i class="fa fa-search"></i> Pencarian</a></li>
+					    <li><a href="./"><i class="fa fa-home"></i> Home</a></li>
+                        <li><a href="./cari.php"><i class="fa fa-search"></i> Pencarian</a></li>
                         <li class="dropdown">
 							 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-info"></i> Bantuan<strong class="caret"></strong></a>
 							<ul class="dropdown-menu">
