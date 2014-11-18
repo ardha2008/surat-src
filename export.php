@@ -5,6 +5,8 @@
  * @author Ardha Herdianto
  * @copyright 2013
  */
+ 
+
   
 if(isset($_GET['as'])){
     
@@ -14,156 +16,64 @@ if(isset($_GET['as'])){
         
         // koneksi ke mysql
         
-        require_once 'config.php';
-        
-        // nama file
-        $namaFile = "report-$date.xls";
-        
-        function xlsBOF() {
-        echo pack("ssssss", 0x809, 0x8, 0x0, 0x10, 0x0, 0x0);
-        return;
-        }
-        
-        function xlsEOF() {
-        echo pack("ss", 0x0A, 0x00);
-        return;
-        }
-        
-        function xlsWriteNumber($Row, $Col, $Value) {
-        echo pack("sssss", 0x203, 14, $Row, $Col, 0x0);
-        echo pack("d", $Value);
-        return;
-        }
-        
-        function xlsWriteLabel($Row, $Col, $Value ) {
-        $L = strlen($Value);
-        echo pack("ssssss", 0x204, 8 + $L, $Row, $Col, 0x0, $L);
-        echo $Value;
-        return;
-        }
-        
-        
-        header("Pragma: public");
-        header("Expires: 0");
-        header("Cache-Control: must-revalidate, post-check=0,
-                pre-check=0");
-        header("Content-Type: application/force-download");
-        header("Content-Type: application/octet-stream");
-        header("Content-Type: application/download");
-        
-        // header untuk nama file
-        header("Content-Disposition: attachment;
-                filename=".$namaFile."");
-        
-        header("Content-Transfer-Encoding: binary ");
-        
-        // memanggil function penanda awal file excel
-        xlsBOF();
-        
-        // ------ membuat kolom pada excel --- //
-        
-        // mengisi pada cell A1 (baris ke-0, kolom ke-0)
-        xlsWriteLabel(0,0,"idsurat");               
-        
-        // mengisi pada cell A2 (baris ke-0, kolom ke-1)
-        xlsWriteLabel(0,1,"jenis_surat");              
-        
-        // mengisi pada cell A3 (baris ke-0, kolom ke-2)
-        xlsWriteLabel(0,2,"tanggal_surat");
-        
-        // mengisi pada cell A4 (baris ke-0, kolom ke-3)
-        xlsWriteLabel(0,3,"perihal");   
-        
-        // mengisi pada cell A5 (baris ke-0, kolom ke-4)
-        xlsWriteLabel(0,4,"catatan");
-         
-        // mengisi pada cell A6 (baris ke-0, kolom ke-5)
-        xlsWriteLabel(0,5,"asal_surat");
-        
-        // mengisi pada cell A7 (baris ke-0, kolom ke-6)
-        xlsWriteLabel(0,6,"disposisi");
-        
-        // mengisi pada cell A8 (baris ke-0, kolom ke-7)
-        xlsWriteLabel(0,7,"kata_kunci");   
-        
-        xlsWriteLabel(0,8,"delete");
-        
-        xlsWriteLabel(0,9,"posting");
-        
-        xlsWriteLabel(0,10,"public");
-        
-        xlsWriteLabel(0,11,"lampiran");
-        
-        xlsWriteLabel(0,12,"created_at");
-        // -------- menampilkan data --------- //
-        
-        
-        // query menampilkan semua data
-        
-        $query = "SELECT * FROM surat order by created_at DESC";
-        $hasil = mysql_query($query);
-        
-        // nilai awal untuk baris cell
-        $noBarisCell = 1;
-        
-        // nilai awal untuk nomor urut data
-        $noData = 1;
-        
-        while ($data = mysql_fetch_array($hasil))
-        {
-        
-        // menampilkan data id
-           xlsWriteLabel($noBarisCell,0,$data['idsurat']);
-        
-        // menampilkan data nama mahasiswa
-           xlsWriteLabel($noBarisCell,1,$data['jenis_surat']);
-        
-        // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,2,$data['tanggal_surat']);
-        
-        // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,3,$data['perihal']);
-        
-        // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,4,$data['catatan']);
-        
-        // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,5,$data['asal_surat']);
-        
-        // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,6,$data['disposisi']);
-        
-        // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,7,$data['kata_kunci']);
-        
-        // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,8,$data['delete']);
-
-            // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,9,$data['posting']);
-
-        // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,10,$data['public']);
-           
-                   // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,11,$data['lampiran']);
-           
-                   // menampilkan data nilai
-           xlsWriteLabel($noBarisCell,12,$data['created_at']);
-
-
-
-
-           // increment untuk no. baris cell dan no. urut data
-           $noBarisCell++;
-           $noData++;
-        }
-        
-        // memanggil function penanda akhir file excel
-        xlsEOF();
-        exit();
+            $DB_Server = "localhost"; // MySQL Server
+            $DB_Username = "root"; // MySQL Username
+            $DB_Password = ""; // MySQL Password
+            $DB_DBName = "surat"; // MySQL Database Name
+            $DB_TBLName = "surat"; // MySQL Table Name
+            $xls_filename = 'export_'.$date.'.xls'; // Define Excel (.xls) file name
+             
+            /***** DO NOT EDIT BELOW LINES *****/
+            // Create MySQL connection
+            $sql = "Select * from $DB_TBLName";
+            $Connect = @mysql_connect($DB_Server, $DB_Username, $DB_Password) or die("Failed to connect to MySQL:<br />" . mysql_error() . "<br />" . mysql_errno());
+            // Select database
+            $Db = @mysql_select_db($DB_DBName, $Connect) or die("Failed to select database:<br />" . mysql_error(). "<br />" . mysql_errno());
+            // Execute query
+            $result = @mysql_query($sql,$Connect) or die("Failed to execute query:<br />" . mysql_error(). "<br />" . mysql_errno());
+             
+            // Header info settings
+            header("Content-Type: application/xls");
+            header("Content-Disposition: attachment; filename=$xls_filename");
+            header("Pragma: no-cache");
+            header("Expires: 0");
+             
+            /***** Start of Formatting for Excel *****/
+            // Define separator (defines columns in excel &amp; tabs in word)
+            $sep = "\t"; // tabbed character
+             
+            // Start of printing column names as names of MySQL fields
+            for ($i = 0; $i<mysql_num_fields($result); $i++) {
+              echo mysql_field_name($result, $i) . "\t";
+            }
+            print("\n");
+            // End of printing column names
+             
+            // Start while loop to get data
+            while($row = mysql_fetch_row($result))
+            {
+              $schema_insert = "";
+              for($j=0; $j<mysql_num_fields($result); $j++)
+              {
+                if(!isset($row[$j])) {
+                  $schema_insert .= "NULL".$sep;
+                }
+                elseif ($row[$j] != "") {
+                  $schema_insert .= "$row[$j]".$sep;
+                }
+                else {
+                  $schema_insert .= "".$sep;
+                }
+              }
+              $schema_insert = str_replace($sep."$", "", $schema_insert);
+              $schema_insert = preg_replace("/\r\n|\n\r|\n|\r/", " ", $schema_insert);
+              $schema_insert .= "\t";
+              print(trim($schema_insert));
+              print "\n";
+            }
+            
 
     }
-            
-}
+}           
+
 ?>

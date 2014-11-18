@@ -22,7 +22,7 @@
                 <span class="help-block"><small>Tipe file import : .xls</small></span>
                 </div>
                 <div class="clearfix"></div><br />
-                <button class="btn btn-primary"><i class="glyphicon glyphicon-import"></i> Import</button>
+                <button name="import_file" class="btn btn-primary"><i class="glyphicon glyphicon-import"></i> Import</button>
                 </form>
             </fieldset>
         </div>
