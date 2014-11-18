@@ -25,7 +25,7 @@ if(isset($_GET['id'])){
             <fieldset>
                 <legend>Perbarui Surat - <?php echo $result['idsurat'] ?></legend>
                 
-                <?php if(isset($success) && $success == 1){ ?><div class="alert alert-success">Berhasil menambahkan data baru</div><?php };?>
+                <?php if(isset($_SESSION['success']) && $_SESSION['success'] == true){ ?><div class="alert alert-success">Berhasil Memperbarui data baru</div><?php unset($_SESSION['success']) ;};?>
                 <?php if(isset($failed) && $failed == 1){ ?><div class="alert alert-warning"><i class="fa fa-warning"></i> Foto tidak dapat digunakan</div><?php };?>
                 
                 <div class="col-md-8">
@@ -39,6 +39,7 @@ if(isset($_GET['id'])){
                                 <label class="col-sm-3 control-label">Nomor Surat*</label>
                                 <div class="col-sm-5">
                                   <input type="text" autofocus="" value="<?php echo $result['idsurat'] ?>" class="form-control" name="idsurat" required="" placeholder="eg. 110/KERMA/UND/002"/>
+                                  <input type="hidden" value="<?php echo $result['idsurat'] ?>" class="form-control" name="old_idsurat" required="" />
                                 </div>
                               </div>
                               
@@ -98,14 +99,14 @@ if(isset($_GET['id'])){
             
             <div class="col-md-4">
                     <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-th"></i> 5 Data terakhir</div>
+                    <div class="panel-heading"><i class="fa fa-th"></i> Lampiran</div>
             
                     <div class="panel-body">
-                        <ol>
-                            <?php $data=get_last_surat('created_at',5);while($value=mysql_fetch_array($data)){?>
-                                <li><?= $value['perihal'] ?></li>
-                            <?php } ?>
-                        </ol>
+                        <div class="thumbnail">
+                            <img src="./img/surat/<?php echo $result['lampiran']; ?>" />
+                        </div>
+                        <input type="hidden" value="<?php echo $result['lampiran']; ?>" name="old_lampiran" />
+                        <input type="file" name="lampiran" class="form-control" />
                     </div>
                 </div>
             </div>
@@ -134,6 +135,10 @@ if(isset($_GET['id'])){
                         </div>                        
                     </div>
                     
+                </div>
+                
+                <div class="col-sm-6">
+                    
                     <div class="form-group">                    
                         <div class="col-xs-8">
                             <label>Disposisi</label>
@@ -149,26 +154,6 @@ if(isset($_GET['id'])){
                         </div>                        
                     </div>
                     
-                </div>
-                
-                <div class="col-sm-6">
-                    <div class="form-group">                    
-                        <div class="col-xs-8">
-                            <label>Lampiran</label>
-                            <input type="file" name="lampiran" class="form-control" />
-                        </div>                        
-                    </div>
-                    
-                    <div class="form-group">                    
-                        <div class="col-xs-8">
-                        <?php if(!file_exists('./img/surat/'.$result['lampiran']) || $result['lampiran'=='']){
-                            echo 'Tidak ada lampiran';
-                        }else{?>
-                            <img class="thumbnail" src="./img/surat/<?php echo $result['lampiran']; ?>" />
-                        <?php } ?>
-                            
-                        </div>                        
-                    </div>
                 </div>
                 
                 

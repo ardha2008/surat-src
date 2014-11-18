@@ -71,7 +71,7 @@ if(isset($_GET['id'])){
             
                     <div class="panel-body">
                         <div class="thumbnail">
-                            <img src="./img/surat/<?php $result['lampiran'] ?>" />
+                            <img src="./img/surat/<?php echo $result['lampiran'] ?>" />
                         </div>
                     </div>
                 </div>

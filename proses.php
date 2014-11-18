@@ -195,10 +195,12 @@ if(isset($_POST['tambah_surat'])){
 }
 
 //=================================================================
-//=========================UPDATE TAMBAH SURAT=====================
+//=========================UPDATE SURAT=====================
 //=================================================================
 
 if(isset($_POST['update_surat'])){
+    $old=$_POST['old_idsurat'];
+    
     $id=$_POST['idsurat'];
     $jenis_surat=$_POST['jenis_surat'];
     $tanggal_surat=$_POST['tanggal_surat'];
@@ -209,12 +211,13 @@ if(isset($_POST['update_surat'])){
     $catatan=$_POST['catatan'];
     $asal_surat=$_POST['asal_surat'];
     $keyword=$_POST['keyword'];
-    $posting=get_login('nama');
+    $posting=get_login('idusers');
     
   //  print_r($_FILES['lampiran']);
    // exit();  
       
     if(isset($_FILES['lampiran']['tmp_name'])){
+        
         $new_name=random().'.jpeg';
     
         $target_path = './img/surat/';
@@ -222,16 +225,17 @@ if(isset($_POST['update_surat'])){
         $foto=$new_name;
         
         if(move_uploaded_file($_FILES['lampiran']['tmp_name'], $target_path)) {
-            
+            unlink('./img/surat/'.$_POST['old_lampiran']);    
         } else{
             $failed=1;
-            $foto='nophoto.jpg';
+            $foto=$_POST['old_lampiran'];
         }
     }else{
-        $foto='nophoto.jpg';
+        $foto=$_POST['old_lampiran'];
     }
     
     $query="UPDATE surat SET 
+    idsurat='$id',
     jenis_surat='$jenis_surat', 
     tanggal_surat='$tanggal_surat',
     perihal='$perihal',
@@ -240,12 +244,14 @@ if(isset($_POST['update_surat'])){
     catatan='$catatan',
     asal_surat='$asal_surat',
     kata_kunci='$keyword',
-    posting='$posting'
-    WHERE idsurat='$id'";
+    posting='$posting',
+    lampiran='$foto'
+    WHERE idsurat='$old'";
     $query=mysql_query($query) or die(mysql_error());
     
     if($query){
-        $success=1;
+        $_SESSION['success']=true;
+        header("Location:./?page=surat/edit&id=$id");
     }
 /**
  *  CATATAN : LAMPIRAN AKAN DIBUAT DINAMIK;
@@ -367,5 +373,23 @@ if(isset($_POST['import_file'])){
     echo "<p>Jumlah data yang sukses diimport : ".$sukses."<br>";
     echo "Jumlah data yang gagal diimport : ".$gagal."</p>";
 }
+
+//=================================================================
+//=========================UPDATE HAK AKSES========================
+//=================================================================
+
+if(isset($_POST['update_hak_akses'])){
+    $jumlah=count($_POST['hak_akses']);
+    
+    for($i=0;$i<$jumlah;$i++){
+        $id=$_POST['id'][$i];
+        $bagian=$_POST['hak_akses'][$i];
+        $update=mysql_query("update users set idbagian='$bagian' where idusers='$id' ");
+    }
+    
+    $success=1;
+}
+
+
 ?>
 
