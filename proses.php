@@ -225,7 +225,9 @@ if(isset($_POST['update_surat'])){
         $foto=$new_name;
         
         if(move_uploaded_file($_FILES['lampiran']['tmp_name'], $target_path)) {
-            unlink('./img/surat/'.$_POST['old_lampiran']);    
+            if($_POST['old_lampiran'] != 'no_lampiran.jpeg'){
+                unlink('./img/surat/'.$_POST['old_lampiran']);
+            }    
         } else{
             $failed=1;
             $foto=$_POST['old_lampiran'];
@@ -388,6 +390,22 @@ if(isset($_POST['update_hak_akses'])){
     }
     
     $success=1;
+}
+
+//=================================================================
+//=========================MENU CARI ==============================
+//=================================================================
+
+if(isset($_POST['cari'])){
+
+    $cari = $_POST['cari'];
+    
+    if($cari=='tanggal'){
+        $tanggal=$_POST['tahun'].'-'.$_POST['bulan'].'-'.$_POST['tanggal'];
+        $query=mysql_query("select * from surat where tanggal_surat='$tanggal' and `delete`=0 and public=1") or die();
+    
+    }
+
 }
 
 

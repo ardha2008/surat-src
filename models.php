@@ -86,4 +86,6 @@ function cari_laporan($dari,$sampai,$berdasar='surat'){
     $query=mysql_query("select * from surat where tanggal_surat between '$dari' and '$sampai' and `delete`='0' ");
     return $query;   
 }
+
+
 ?>

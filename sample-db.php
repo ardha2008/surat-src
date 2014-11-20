@@ -34,7 +34,7 @@ $perihal_b=$perihal[$perihal_x].'-'.rand(2000,2014);
 $public=rand(0,1);
 //echo $public;
 
-for($i=1;$i<=50;$i++){
+
 
 	$a=mysql_query("insert into surat (idsurat,jenis_surat,tanggal_surat,perihal,public) values ('$idsurat','$srt','$tgl_surat','$perihal_b',$public) ",$koneksi) or die(mysql_error());
 	if($a){
@@ -42,6 +42,6 @@ for($i=1;$i<=50;$i++){
 	}
 
 
-}
+
 
 ?>
