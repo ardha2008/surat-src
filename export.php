@@ -106,7 +106,7 @@ if(isset($_GET['as'])){
         require_once 'lib/fpdf.php';
         require_once 'config.php';
         
-        $query=mysql_query("select * from surat where `delete`=0 order by tanggal_surat DESC");
+        $query=mysql_query("select * from surat where `delete`=0 order by tanggal_surat DESC, jenis_surat ASC");
         
         class PDF extends FPDF {
             // Page header
@@ -156,22 +156,28 @@ if(isset($_GET['as'])){
             $pdf->Ln(30);
             
             #$label=array(1=>'#','Nomer Surat','Perihal');
-            $kolom=array(8,60,95,25);
+            $kolom=array(8,60,80,20,25);
             
             $pdf->Cell($kolom[0],10,'#',1,0,'C');   
             $pdf->Cell($kolom[1],10,'No Surat',1,0,'C');
             $pdf->Cell($kolom[2],10,'Perihal',1,0,'C');
-            $pdf->Cell($kolom[3],10,'Tanggal',1,0,'C');
+            $pdf->Cell($kolom[3],10,'Jenis',1,0,'C');
+            $pdf->Cell($kolom[4],10,'Tanggal',1,0,'C');
 
             $pdf->Ln();
             
             for($i=1;$i<=3;$i++){
-                
                 $j=1;while($result=mysql_fetch_array($query)){
-                    $pdf->Cell($kolom[0],10,$j,'LTB',0,'C');
+                    if($result['jenis_surat']=='masuk'){
+                        $hasil='S.MASUK';
+                    }else{
+                        $hasil='S.KELUAR';
+                    }
+                    $pdf->Cell($kolom[0],10,$j,'TLB',0,'C');
                     $pdf->Cell($kolom[1],10,$result['idsurat'],'TB');
                     $pdf->Cell($kolom[2],10,$result['perihal'],'TB');
-                    $pdf->Cell($kolom[3],10,date('d-m-Y',strtotime($result['tanggal_surat'])),'TBR');
+                    $pdf->Cell($kolom[3],10,$hasil,'TB');
+                    $pdf->Cell($kolom[4],10,date('d-m-Y',strtotime($result['tanggal_surat'])),'TBR');
                     $pdf->Ln();
                     $j++;       
                 }
