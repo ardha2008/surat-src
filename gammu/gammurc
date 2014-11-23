@@ -1,0 +1,24 @@
+[gammu]
+port = com10:
+connection = at
+; Do not use model configuration unless you really need it
+; model = 6110
+; synchronizetime = yes
+; logfile = gammulog
+; logformat = textall
+; use_locking = yes
+; gammuloc = locfile
+; startinfo = yes
+; gammucoding = utf8
+; usephonedb = yes
+[gammu1]
+; port = com8:
+; model = 6110
+; connection = at115200
+; synchronizetime = yes
+; logfile = gammulog
+; logformat = textall
+; use_locking = yes
+; gammuloc = locfile
+; startinfo = yes
+; gammucoding = utf8

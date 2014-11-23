@@ -17,7 +17,7 @@ require_once 'config.php';
 	<!--script src="js/less-1.3.3.min.js"></script-->
 	<!--append ‘#!watch’ to the browser URL, then refresh the page. -->
 	
-	<link href="css/bootstrap.min.css" rel="stylesheet"/>
+	<link href="css/bootstrap.css" rel="stylesheet"/>
 	<link href="css/style.css" rel="stylesheet"/>
     
     <!--FONT AWESOME-->
