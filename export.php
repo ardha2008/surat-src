@@ -106,7 +106,17 @@ if(isset($_GET['as'])){
         require_once 'lib/fpdf.php';
         require_once 'config.php';
         
-        $query=mysql_query("select * from surat where `delete`=0 order by tanggal_surat DESC, jenis_surat ASC");
+        if(isset($_GET['dari']) && isset($_GET['sampai'])){
+            $dari=$_GET['dari'];
+            $sampai=$_GET['sampai'];
+            $query=mysql_query("select * from surat where tanggal_surat between '$dari' and '$sampai' and `delete`='0'");
+            
+            $dari=date('d-m-Y',strtotime($dari));
+            $sampai=date('d-m-Y',strtotime($sampai));
+        }else{
+            $query=mysql_query("select * from surat where `delete`=0 order by tanggal_surat DESC, jenis_surat ASC");    
+        }
+        
         
         class PDF extends FPDF {
             // Page header
@@ -139,7 +149,7 @@ if(isset($_GET['as'])){
                 // Page number
                 $this->Cell(0,10,'Halaman '.$this->PageNo().'/{nb}',0,0,'C');
                 $this->Ln();
-                $this->Cell(10,1,'©2014 Biro Kerjasama Dan Kemahasiswaan UPN Jatim',0,0,'L');
+                $this->Cell(10,1,'©2014 Biro Kerjasama Dan Kemahasiswaan UPN "Veteran" Jatim',0,0,'L');
             }
         }
 
@@ -151,7 +161,13 @@ if(isset($_GET['as'])){
             $pdf->Cell(180,25,'Surabaya, '.date('d F Y'),0,0,'R');
             $pdf->Ln(1);
             $pdf->SetFont('Times','bu',12);
-            $pdf->Cell(118,45,'Laporan Surat Keluar Masuk',0,0,'R');
+            
+            if(isset($dari) && isset($sampai)){
+                $pdf->Cell(190,45,"Laporan Keseluruhan Surat Keluar Masuk per $dari hingga $sampai",0,0,'C');    
+            }else{
+                $pdf->Cell(190,45,'Laporan Keseluruhan Surat Keluar Masuk',0,0,'C');    
+            }
+            
             $pdf->SetFont('Times','',10);
             $pdf->Ln(30);
             

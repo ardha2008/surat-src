@@ -4,7 +4,7 @@
           
         <a href="./?page=surat/tambah"><button class="btn btn-default"><i class="fa fa-plus"></i> Tambah</button></a>
         <a href="./export.php?as=excel" target="_blank"><button class="btn btn-success"><i class="fa fa-file-excel-o"></i> Export as EXCEL</button></a>
-        <a href="./export.php?as=pdf"><button class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button></a>
+        <a href="./export.php?as=pdf" target="_blank"><button class="btn btn-danger"><i class="fa fa-file-pdf-o"></i> Export as PDF</button></a>
         
         <?php if(get_login('idbagian')==3){?><a href="./export.php?as=sql" target="_blank"><button class="btn btn-warning"><i class="fa fa-file"></i> Export as SQL</button></a><?php } ?>
         <div class="clearfix"></div><br />

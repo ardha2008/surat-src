@@ -408,6 +408,24 @@ if(isset($_POST['cari'])){
 
 }
 
+//=================================================================
+//=========================CETAK LAPORAN===========================
+//=================================================================
+
+if(isset($_POST['cetak_laporan'])){
+    $tanggal_awal=$_POST['tanggal_awal'];
+    $bulan_awal=$_POST['bulan_awal'];
+    $tahun_awal=$_POST['tahun_awal'];    
+
+    $tanggal_akhir=$_POST['tanggal_akhir'];
+    $bulan_akhir=$_POST['bulan_akhir'];
+    $tahun_akhir=$_POST['tahun_akhir'];
+    
+    $dari="$tahun_awal-$bulan_awal-$tanggal_awal";
+    $sampai="$tahun_akhir-$bulan_akhir-$tanggal_akhir";
+    
+}
+
 
 ?>
 
