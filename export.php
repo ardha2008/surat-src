@@ -101,6 +101,84 @@ if(isset($_GET['as'])){
             
 
     }
+    
+    if($_GET['as']=='pdf'){
+        require_once 'lib/fpdf.php';
+        require_once 'config.php';
+        
+        $query=mysql_query("select * from surat where `delete`=0 order by tanggal_surat DESC");
+        
+        class PDF extends FPDF {
+            // Page header
+            function Header()
+            {
+                // Logo
+                $this->Image('lib/logo/ykpp.png',18,8,19);
+                $this->Image('lib/logo/upn.jpg',170,8,19);
+                // Arial bold 15
+                $this->SetFont('Arial','',12);
+                // Move to the right
+                $this->Cell(80);
+                // Title
+                $this->Cell(30,10,'YAYASAN KESEJAHTERAAN PENDIDIKAN DAN PERUMAHAN',0,0,'C');
+                $this->Cell(-30,20,'UNIVERSITAS PEMBANGUNAN NASIONAL "VETERAN"',0,0,'C');
+                $this->Cell(30,30,'JAWA TIMUR',0,0,'C');
+                
+                // Line break
+                $this->Ln(20);
+                
+            }
+
+            // Page footer
+            function Footer()
+            {
+                // Position at 1.5 cm from bottom
+                $this->SetY(-15);
+                // Arial italic 8
+                $this->SetFont('Arial','I',8);
+                // Page number
+                $this->Cell(0,10,'Halaman '.$this->PageNo().'/{nb}',0,0,'C');
+                $this->Ln();
+                $this->Cell(10,1,'©2014 Biro Kerjasama Dan Kemahasiswaan UPN Jatim',0,0,'L');
+            }
+        }
+
+            // Instanciation of inherited class
+            $pdf = new PDF();
+            $pdf->AliasNbPages();
+            $pdf->AddPage();
+            $pdf->SetFont('Times','',11);
+            $pdf->Cell(180,25,'Surabaya, '.date('d F Y'),0,0,'R');
+            $pdf->Ln(1);
+            $pdf->SetFont('Times','bu',12);
+            $pdf->Cell(118,45,'Laporan Surat Keluar Masuk',0,0,'R');
+            $pdf->SetFont('Times','',10);
+            $pdf->Ln(30);
+            
+            #$label=array(1=>'#','Nomer Surat','Perihal');
+            $kolom=array(8,60,95,25);
+            
+            $pdf->Cell($kolom[0],10,'#',1,0,'C');   
+            $pdf->Cell($kolom[1],10,'No Surat',1,0,'C');
+            $pdf->Cell($kolom[2],10,'Perihal',1,0,'C');
+            $pdf->Cell($kolom[3],10,'Tanggal',1,0,'C');
+
+            $pdf->Ln();
+            
+            for($i=1;$i<=3;$i++){
+                
+                $j=1;while($result=mysql_fetch_array($query)){
+                    $pdf->Cell($kolom[0],10,$j,'LTB',0,'C');
+                    $pdf->Cell($kolom[1],10,$result['idsurat'],'TB');
+                    $pdf->Cell($kolom[2],10,$result['perihal'],'TB');
+                    $pdf->Cell($kolom[3],10,date('d-m-Y',strtotime($result['tanggal_surat'])),'TBR');
+                    $pdf->Ln();
+                    $j++;       
+                }
+            }
+            
+            $pdf->Output();
+    }
 }           
 
 ?>
