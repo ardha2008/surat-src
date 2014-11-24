@@ -22,6 +22,11 @@ function get_login($tampil){
     return $data[$tampil];
 }
 
+function get_kategori($order_by='idkategori'){
+    $query=mysql_query("select * from kategori order by $order_by DESC");
+    return $query;
+}
+
 function get_surat($get='all'){
     switch ($get){ 
 	case 'all' : $query=mysql_query("select * from surat order by created_at DESC");

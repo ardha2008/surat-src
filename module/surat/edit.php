@@ -65,6 +65,17 @@ if(isset($_GET['id'])){
                                   <textarea class="form-control" name="perihal"><?php echo $result['perihal'] ?></textarea>
                                 </div>
                               </div>
+                              
+                              <div class="form-group">
+                                <label class="col-sm-3 control-label">Jenis Surat</label>
+                                <div class="col-sm-5">
+                                  <select class="form-control" name="kategori">
+                                    <?php $get_kategori=get_kategori();while($hasil=mysql_fetch_array($get_kategori)){?>
+                                        <option value="<?php echo $hasil['idkategori'] ?>" <?php if($hasil['idkategori']==$result['idkategori']) echo 'selected'; ?> ><?php echo $hasil['keterangan_kategori'] ?></option>
+                                    <?php } ?>
+                                  </select>
+                                </div>
+                              </div>
                             
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tanggal Surat</label>

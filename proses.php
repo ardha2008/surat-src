@@ -174,10 +174,10 @@ if(isset($_POST['tambah_surat'])){
             
         } else{
             $failed=1;
-            $foto='nophoto.jpg';
+            $foto='no_lampiran.jpeg';
         }
     }else{
-        $foto='nophoto.jpg';
+        $foto='no_lampiran.jpeg';
     }
     
     $query=mysql_query("INSERT INTO surat (idsurat, jenis_surat, tanggal_surat, perihal, catatan, asal_surat,disposisi,kata_kunci,posting,public,lampiran) VALUES ('$id', '$jenis_surat', '$tanggal_surat', '$perihal', '$catatan', '$asal_surat','$disposisi','$keyword','$posting','$publikasi','$foto')") or die(mysql_error());
@@ -205,6 +205,7 @@ if(isset($_POST['update_surat'])){
     $jenis_surat=$_POST['jenis_surat'];
     $tanggal_surat=$_POST['tanggal_surat'];
     $perihal=$_POST['perihal'];
+    $kategori=$_POST['kategori'];
     $publikasi=$_POST['publikasi'];
     
     $disposisi=$_POST['disposisi'];
@@ -240,6 +241,7 @@ if(isset($_POST['update_surat'])){
     idsurat='$id',
     jenis_surat='$jenis_surat', 
     tanggal_surat='$tanggal_surat',
+    idkategori='$kategori',
     perihal='$perihal',
     disposisi='$disposisi',
     public='$publikasi',

@@ -25,7 +25,7 @@
                 </ul>
                 
             <div class="panel-footer">
-                Selengkapnya ...
+                <a href="./?page=surat/index">Selengkapnya</a>
             </div>
             
         </div>
