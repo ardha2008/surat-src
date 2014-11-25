@@ -1,5 +1,7 @@
 <div class="row clearfix">
     <div class="col-lg-12">
+        <?php if(!$diakses->isMobile()){?>
+        
         <div class="carousel slide" id="carousel-351745">
 				<ol class="carousel-indicators">
 					<li data-slide-to="0" data-target="#carousel-351745">
@@ -11,7 +13,7 @@
 				</ol>
 				<div class="carousel-inner">
 					<div class="item">
-						<img alt="" src="http://lorempixel.com/1600/500/sports/1" />
+						<img alt="" src="./img/download.jpg" />
 						<div class="carousel-caption">
 							<h4>
 								First Thumbnail label
@@ -22,7 +24,7 @@
 						</div>
 					</div>
 					<div class="item">
-						<img alt="" src="http://lorempixel.com/1600/500/sports/2" />
+						<img alt="" src="./img/download1.jpg" />
 						<div class="carousel-caption">
 							<h4>
 								Second Thumbnail label
@@ -33,7 +35,7 @@
 						</div>
 					</div>
 					<div class="item active">
-						<img alt="" src="http://lorempixel.com/1600/500/sports/3" />
+						<img alt="" src="./img/download2.jpg" />
 						<div class="carousel-caption">
 							<h4>
 								Third Thumbnail label
@@ -45,6 +47,7 @@
 					</div>
 				</div> <a class="left carousel-control" href="#carousel-351745" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-351745" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
 			</div>
+        <?php } ?>
             <hr />
     </div>
     
@@ -56,22 +59,47 @@
 		  <div class="col-md-9 column">        
             <div class="alert alert-info">
             <p>
-				Aplikasi ini masih dalam tahap pengembangan, Binary  : <strong><?php echo sha1('v.2') ?></strong>.
+				Aplikasi ini masih dalam tahap pengembangan, Binary  : <strong><?php echo sha1('v.2.1') ?></strong>.
 			</p>
             </div>
+ 
             
 			<div class="row clearfix">
             
 				<div class="col-md-4 column">
 					<div class="thumbnail">
-						<img alt="300x200" src="img/cloud-icon.png" />
+						<img alt="300x200" src="img/frames.png" />
 						<div class="caption">
-							<h3><strong>Penyimpanan Cloud</strong></h3>
+							<h3><strong>Kustomasi Fitur</strong></h3>
                             <hr />
-							<p>Model penyimpanan menggunakan cloud sehingga tidak menghabiskan space memori yang besar karena tersimpan di server cloud.</p>
+							<p>Memiliki fitur kustomasi fitur baru dengan mudah karena dibangun dengan manajemen file yang baik.</p>
 						</div>
 					</div>
 				</div>
+                
+                <div class="col-md-4 column">
+					<div class="thumbnail">
+						<img alt="300x200" src="img/profle.png" />
+						<div class="caption">
+							<h3><strong>User Management</strong></h3>
+                            <hr />
+							<p>Fitur manajemen user dan profil pengguna nya sehingga tiap user memiliki tugas masing-masing.</p>
+						</div>
+					</div>
+				</div>
+                
+                <div class="col-md-4 column">
+					<div class="thumbnail">
+						<img alt="300x200" src="img/rocket.png" />
+						<div class="caption">
+							<h3><strong>Efisiensi Data</strong></h3>
+                            <hr />
+							<p>Proses dan manajemen data lebih teratur sehingga memaksimalkan kinerja.</p>
+						</div>
+					</div>
+				</div>
+                
+                <div class="clearfix"></div>
                 
                 <div class="col-md-4 column">
 					<div class="thumbnail">
@@ -113,7 +141,7 @@
                 <div class="panel panel-default">
     				<div class="panel-heading">
     					<h3 class="panel-title">
-    						<i class="fa fa-th-large"></i> LOGIN
+    						<span class="glyphicon glyphicon-log-in"></span> LOGIN
     					</h3>
     				</div>
                     

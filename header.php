@@ -19,7 +19,7 @@ require_once 'config.php';
 	
 	<link href="css/bootstrap.css" rel="stylesheet"/>
 	<link href="css/style.css" rel="stylesheet"/>
-    
+    <link href="fonts/stylesheet.css" rel="stylesheet"/>
     <!--FONT AWESOME-->
     <link href="css/font-awesome.min.css" rel="stylesheet" />
     
@@ -27,7 +27,7 @@ require_once 'config.php';
   <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
   <![endif]-->
-  <link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+  <!--link href='http://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'-->
   <!-- Fav and touch icons -->
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="img/apple-touch-icon-144-precomposed.png">
   <link rel="apple-touch-icon-precomposed" sizes="114x114" href="img/apple-touch-icon-114-precomposed.png">
@@ -74,12 +74,18 @@ require_once 'config.php';
                         <?php if(isset($_SESSION['login']) && $_SESSION['login']==true){?>
                         
 		                <li><a href="./?page=dashboard"><i class="fa fa-home"></i> Dashboard</a></li> 
-                        <li><a href="./?page=surat/index"><i class="fa fa-envelope"></i> Surat</a></li>
                         
+                        <?php if(get_login('idbagian')>=0 && get_login('idbagian')<=3 ){?>
+                            <li><a href="./?page=surat/riwayat"><i class="fa fa-newspaper-o"></i> Riwayat</a></li>
+                        <?php } ?>
+                        
+                        <?php if(get_login('idbagian')>0){?>
+                            <li><a href="./?page=surat/index"><i class="fa fa-envelope"></i> Surat</a></li>
+                        <?php } ?>
                           
-					    <?php if(get_login('idbagian')>=2){?>
+					    <?php if(get_login('idbagian')==2 || get_login('idbagian')==3 ){?>
                             <li><a href="./?page=pegawai/index"><i class="fa fa-users"></i> Pegawai</a></li>
-					       <li><a href="./?page=laporan/index"><i class="fa fa-book"></i> Laporan</a></li>
+					       <li><a href="./?page=laporan/index"><i class="fa fa-line-chart"></i> Laporan</a></li>
 					    <?php } ?>
                         
                         <?php if(get_login('idbagian')==3){?>

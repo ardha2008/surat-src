@@ -98,7 +98,7 @@ if(isset($_POST['tambah_pegawai'])){
 }
 
 //=================================================================
-//=========================UPDATE PERSONAL=========================
+//=========================UPDATE PROFIL===========================
 //=================================================================
 
 if(isset($_POST['update_personal'])){
@@ -113,6 +113,7 @@ if(isset($_POST['update_personal'])){
     
     $update=mysql_query("update pegawai set idpegawai='$nip', nama='$nama', alamat='$alamat',kota='$kota',telepon='$telepon',ponsel='$ponsel' where idpegawai='$old'");
     $update2=mysql_query("update users set idusers='$nip' where idusers='$old'");
+    $update3=mysql_query("update surat set posting='$nip' where posting='$old'");
     
     $_SESSION['idusers']=$nip;
     
@@ -151,6 +152,7 @@ if(isset($_POST['tambah_surat'])){
     $tanggal_surat=$_POST['tanggal_surat'];
     //$tanggal_surat=explode('/',$tanggal_surat);
     
+    $kategori=$_POST['kategori'];
     $perihal=$_POST['perihal'];
     $publikasi=$_POST['publikasi'];
     
@@ -180,7 +182,7 @@ if(isset($_POST['tambah_surat'])){
         $foto='no_lampiran.jpeg';
     }
     
-    $query=mysql_query("INSERT INTO surat (idsurat, jenis_surat, tanggal_surat, perihal, catatan, asal_surat,disposisi,kata_kunci,posting,public,lampiran) VALUES ('$id', '$jenis_surat', '$tanggal_surat', '$perihal', '$catatan', '$asal_surat','$disposisi','$keyword','$posting','$publikasi','$foto')") or die(mysql_error());
+    $query=mysql_query("INSERT INTO surat (idsurat, jenis_surat, tanggal_surat, idkategori ,perihal, catatan, asal_surat,disposisi,kata_kunci,posting,public,lampiran) VALUES ('$id', '$jenis_surat', '$tanggal_surat','$kategori','$perihal', '$catatan', '$asal_surat','$disposisi','$keyword','$posting','$publikasi','$foto')") or die(mysql_error());
     
     if($query){
         $success=1;

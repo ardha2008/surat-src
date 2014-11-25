@@ -10,8 +10,37 @@
         </div>
         -->
     </div>
-
-    <div class="col-md-4">
+    
+    <?php if(get_login('idbagian')==0){?>
+        <div class="col-lg-12">
+            <div class="col-md-4">
+                <div class="panel panel-default">
+                    <div class="panel-heading"><i class="fa fa-info"></i> Info</div>
+                    
+                    <div class="panel-body">
+                        Terakhir diakses pada 
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div class="col-sm-6">
+                  <div class="thumbnail">
+						<img alt="300x200" src="img/brush-pencil.png" />
+						<div class="caption">
+							<h3><strong>Manajemen surat</strong></h3>
+							<p>Hak akses untuk mengatur menambah dan mengatur surat sesuai dengan akses masing-masing user.</p>
+						</div>
+					</div>  
+                </div>
+                
+                <div class="col-sm-6">
+                
+                </div>
+            </div>
+            </div>
+    <?php }else{?>
+        <div class="col-md-4">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <i class="fa fa-info"></i> Surat Masuk 
@@ -20,7 +49,7 @@
             
                 <ul class="list-group">
                 <?php $data=get_surat_row('masuk','5');while($value=mysql_fetch_array($data)){?>
-                    <li class="list-group-item"><i class="fa fa-envelope"></i> <?php echo $value['perihal'] ?> </li>
+                    <li class="list-group-item"><i class="fa fa-envelope"></i> <a href="./?page=surat/detail&id=<?php echo $value['idsurat'] ?>"><?php echo $value['perihal'] ?></a> </li>
                 <?php } ?>
                 </ul>
                 
@@ -40,7 +69,7 @@
                 <ul class="list-group">
                   
                     <?php $data=get_surat_row('keluar','5');while($value=mysql_fetch_array($data)){?>
-                    <li class="list-group-item"><i class="fa fa-envelope"></i> <?php echo $value['perihal'] ?> </li>
+                    <li class="list-group-item"><i class="fa fa-envelope"></i> <a href="./?page=surat/detail&id=<?php echo $value['idsurat'] ?>"><?php echo $value['perihal'] ?></a> </li>
                     <?php } ?>
                
                 </ul>
@@ -70,6 +99,11 @@
         </div>
     
     </div>
+    
+
+    <?php } ?>
+
+
     
     <div class="clearfix"></div>
 <!--    

@@ -43,21 +43,25 @@ if(isset($_GET['id'])){
                                 </div>
                               </div>
                               
-                              <div class="form-group">
-                                <label class="col-sm-3 control-label"></label>
-                                <div class="col-sm-5">
-                                  <div class="radio">
-                                      <label>
-                                        <input type="radio" name="jenis_surat" required="" value="masuk" <?php if($result['jenis_surat'] == 'masuk') echo 'checked'?> />Surat Masuk
-                                      </label>
-                                    </div>
-                                    <div class="radio">
-                                      <label>
-                                        <input type="radio" name="jenis_surat" required="" value="keluar" <?php if($result['jenis_surat'] == 'keluar') echo 'checked'?>/>Surat Keluar
-                                      </label>
+                              <?php if(get_login('idbagian')==0){?>
+                                <input type="hidden" name="jenis_surat" value="<?php echo $result['jenis_surat'] ?>" />
+                              <?php }else{?>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-5">
+                                      <div class="radio">
+                                          <label>
+                                            <input type="radio" name="jenis_surat" required="" value="masuk" <?php if($result['jenis_surat'] == 'masuk') echo 'checked'?> />Surat Masuk
+                                          </label>
+                                        </div>
+                                        <div class="radio">
+                                          <label>
+                                            <input type="radio" name="jenis_surat" required="" value="keluar" <?php if($result['jenis_surat'] == 'keluar') echo 'checked'?>/>Surat Keluar
+                                          </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                              <?php } ?>
                             
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Perihal</label>

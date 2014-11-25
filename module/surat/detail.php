@@ -58,6 +58,13 @@ if(isset($_GET['id'])){
                                 <?php if($result['public'] == '1'){?><div class="alert alert-success"><i class="fa fa-info"></i> Surat ini bersifat <strong>TERBUKA</strong></div><?php } ?>
                                 </div>
                             </div>
+                            
+                            <div class="form-group">
+                                <label class="col-sm-3 control-label">Dicatat oleh </label>
+                                <div class="col-sm-5">
+                                  <p class="form-control-static"><?php echo $result['posting'] ?></p>
+                                </div>
+                              </div>
                               
                         </div>
                     </div>

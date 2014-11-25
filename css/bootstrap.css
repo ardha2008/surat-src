@@ -4258,7 +4258,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse {
   background-color: #222;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'roboto', sans-serif;
   border-color: #080808;
   opacity: 0.9;
   box-shadow: 0 0 3px rgba(0, 0, 0, 0.6);
@@ -4668,7 +4668,7 @@ a.badge:focus {
   margin-bottom: 20px;
   line-height: 1.42857143;
   background-color: #fff;
-  border: 1px solid #ddd;
+  
   border-radius: 4px;
   -webkit-transition: border .2s ease-in-out;
        -o-transition: border .2s ease-in-out;

@@ -8,7 +8,13 @@ jQuery(function($){
 	
 	<div class="col-md-12">
         <form method="post" enctype="multipart/form-data" role="form">
-        <a href="./?page=surat/index" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Kembali</a>
+        
+        <?php if(get_login('idbagian')==0){?>
+            <a href="./?page=surat/riwayat" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Kembali</a>
+        <?php }else{ ?>
+            <a href="./?page=surat/index" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Kembali</a>
+        <?php } ?>
+        
         <button type="submit" name="tambah_surat" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
         <div class="clearfix"></div><br />
         
@@ -16,7 +22,7 @@ jQuery(function($){
                 <legend>Tambah Surat</legend>
                 
                 <?php if(isset($success) && $success == 1){ ?><div class="alert alert-success">Berhasil menambahkan data baru</div><?php };?>
-                <?php if(isset($failed) && $failed == 1){ ?><div class="alert alert-danger">Foto tidak dapat digunakan</div><?php };?>
+                <?php if(isset($failed) && $failed == 1){ ?><div class="alert alert-warning"> Fungsi akan lebih baik ketika menggunakan lampiran</div><?php };?>
                 
                 <div class="col-md-8">
                     <div class="panel panel-default">
@@ -28,32 +34,47 @@ jQuery(function($){
                               <div class="form-group">
                                 <label class="col-sm-3 control-label">Nomor Surat*</label>
                                 <div class="col-sm-5">
-                                  <input type="text" autofocus="" class="form-control" name="idsurat" required="" placeholder="eg. 110/KERMA/UND/002"/>
+                                  <input type="text" autofocus="" class="form-control" name="idsurat" required="" placeholder="eg. B/001/KERMW/11/2014"/>
                                 </div>
                               </div>
                               
-                              <div class="form-group">
-                                <label class="col-sm-3 control-label"></label>
-                                <div class="col-sm-5">
-                                  <div class="radio">
-                                      <label>
-                                        <input type="radio" name="jenis_surat" required="" value="masuk" />
-                                        Surat Masuk
-                                      </label>
-                                    </div>
-                                    <div class="radio">
-                                      <label>
-                                        <input type="radio" name="jenis_surat" required="" value="keluar"/>
-                                        Surat Keluar
-                                      </label>
+                              <?php if(get_login('idbagian')==0){?>
+                                <input type="hidden" name="jenis_surat" value="masuk" />
+                              <?php }else{?>
+                                <div class="form-group">
+                                    <label class="col-sm-3 control-label"></label>
+                                    <div class="col-sm-5">
+                                      <div class="radio">
+                                          <label>
+                                            <input type="radio" name="jenis_surat" required="" value="masuk" />
+                                            Surat Masuk
+                                          </label>
+                                        </div>
+                                        <div class="radio">
+                                          <label>
+                                            <input type="radio" name="jenis_surat" required="" value="keluar"/>
+                                            Surat Keluar
+                                          </label>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                              <?php } ?>
                             
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Perihal</label>
                                 <div class="col-sm-5">
                                   <textarea class="form-control" name="perihal"></textarea>
+                                </div>
+                              </div>
+                              
+                              <div class="form-group">
+                                <label class="col-sm-3 control-label">Jenis Surat</label>
+                                <div class="col-sm-5">
+                                  <select class="form-control" name="kategori">
+                                    <?php $get_kategori=get_kategori();while($hasil=mysql_fetch_array($get_kategori)){?>
+                                        <option value="<?php echo $hasil['idkategori'] ?>"><?php echo $hasil['keterangan_kategori'] ?></option>
+                                    <?php } ?>
+                                  </select>
                                 </div>
                               </div>
                             
@@ -64,7 +85,10 @@ jQuery(function($){
                                 </div>
                               </div>
                               
-                              <div class="form-group">
+                              <?php if(get_login('idbagian')==0){?>
+                                <input type="hidden" name="publikasi" value="0" />
+                              <?php }else{?>
+                                <div class="form-group">
                                 <label class="col-sm-3 control-label"></label>
                                 <div class="col-sm-5">
                                   <div class="radio">
@@ -81,6 +105,7 @@ jQuery(function($){
                                     </div>
                                 </div>
                             </div>
+                              <?php } ?>
                               
                         </div>
                     </div>

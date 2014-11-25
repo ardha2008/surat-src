@@ -11,7 +11,7 @@ function get_last_pegawai($order_by='created_at',$limit=5){
 }
 
 function get_bagian($order_by='idbagian'){
-    $query=mysql_query("select * from bagian order by $order_by desc");
+    $query=mysql_query("select * from bagian order by $order_by ASC");
     return $query;
 }
 
@@ -68,6 +68,11 @@ function get_last_login(){
 
 function get_one_pegawai($id){
     $query=mysql_query("select * from pegawai a, users b where b.idusers=a.idpegawai and a.idpegawai='$id'");
+    return $query;
+}
+
+function riwayat($posting){
+    $query=mysql_query("select * from surat where posting='$posting' order by created_at DESC");
     return $query;
 }
 
