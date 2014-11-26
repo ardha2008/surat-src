@@ -18,7 +18,7 @@
                     <div class="panel-heading"><i class="fa fa-info"></i> Info</div>
                     
                     <div class="panel-body">
-                        Terakhir diakses pada 
+                        Terakhir diakses pada <?php echo date('d M y') ?>
                     </div>
                 </div>
             </div>
@@ -40,8 +40,11 @@
             </div>
             </div>
     <?php }else{?>
-        <div class="col-md-4">
-        <div class="panel panel-primary">
+ 
+    <div class="col-lg-12">
+        <div class="col-md-8">
+            <div class="col-md-6">
+            <div class="panel panel-primary">
             <div class="panel-heading">
                 <i class="fa fa-info"></i> Surat Masuk 
             </div>
@@ -60,7 +63,7 @@
         </div>
     </div>
     
-    <div class="col-md-4">
+    <div class="col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
                 <i class="fa fa-info"></i> Surat Keluar 
@@ -81,25 +84,48 @@
         </div>
     </div>
     
-    <div class="col-md-4">
-            <div class="panel panel-default">
+    <div class="col-md-6">
+        <div class="panel panel-primary">
             <div class="panel-heading">
-                <div class="panel-title"><i class="fa fa-th"></i> Login terakhir</div>
+                <i class="fa fa-info"></i> Jumlah
             </div>
             
                 <ul class="list-group">
-                    <?php $data=get_last_login();while($logs=mysql_fetch_array($data)){?>
-                    <li class="list-group-item"><i class="fa fa-users"></i> <?php echo $logs['nama'] ?> [ <?php echo $logs['time']?> ]</li>
+                  
+                    <?php $data=get_surat_count();while($value=mysql_fetch_array($data)){?>
+                    <li class="list-group-item"><i class="fa fa-envelope"></i> <?php echo $value['kategori'] ?> <span class="badge"><?php echo $value['jumlah'] ?></span></li>
                     <?php } ?>
+               
                 </ul>
-            
+                
             <div class="panel-footer">
-                <button class="btn btn-default">More ...</button>
+                Selengkapnya ...
+            </div>
+            
+        </div>
+    </div>
+    
+        </div>
+    
+        <div class="col-md-4">
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <div class="panel-title"><i class="fa fa-th"></i> Login terakhir</div>
+                </div>
+                
+                    <ul class="list-group">
+                        <?php $data=get_last_login();while($logs=mysql_fetch_array($data)){?>
+                        <li class="list-group-item"><i class="fa fa-users"></i> <?php echo $logs['nama'] ?> [ <?php echo $logs['time']?> ]</li>
+                        <?php } ?>
+                    </ul>
+                
+                <div class="panel-footer">
+                    <button class="btn btn-default">More ...</button>
+                </div>
             </div>
         </div>
     
     </div>
-    
 
     <?php } ?>
 

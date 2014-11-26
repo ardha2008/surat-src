@@ -1,6 +1,18 @@
 <script>
 jQuery(function($){
-   $("#tl").mask("9999/99/99");
+   $("#tl").mask("99/99/9999");
+});
+
+$(document).ready(function(){
+    $("#label").hide();
+  $("#rad1").click(function(){
+    $("#label").hide();
+    $("#label2").show();
+  });
+  $("#rad2").click(function(){
+    $("#label").show();
+    $("#label2").hide();
+  });
 });
 </script>
 
@@ -46,13 +58,13 @@ jQuery(function($){
                                     <div class="col-sm-5">
                                       <div class="radio">
                                           <label>
-                                            <input type="radio" name="jenis_surat" required="" value="masuk" />
+                                            <input type="radio" id="rad1" name="jenis_surat" required="" value="masuk" />
                                             Surat Masuk
                                           </label>
                                         </div>
                                         <div class="radio">
                                           <label>
-                                            <input type="radio" name="jenis_surat" required="" value="keluar"/>
+                                            <input type="radio" id="rad2" name="jenis_surat" required="" value="keluar"/>
                                             Surat Keluar
                                           </label>
                                         </div>
@@ -81,7 +93,7 @@ jQuery(function($){
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Tanggal Surat</label>
                                 <div class="col-sm-5">
-                                  <input type="text" name="tanggal_surat" id="tl" class="form-control" placeholder="yyyy/mm/dd" required="" />
+                                  <input type="text" name="tanggal_surat" id="tl" class="form-control" placeholder="dd/mm/yyyy" required="" />
                                 </div>
                               </div>
                               
@@ -139,15 +151,9 @@ jQuery(function($){
                     
                     <div class="form-group">                    
                         <div class="col-xs-8">
-                            <label>Keterangan Tambahan</label>
-                            <textarea name="catatan" class="form-control"></textarea>
-                        </div>                        
-                    </div>
-                    
-                    <div class="form-group">                    
-                        <div class="col-xs-8">
-                            <label>Asal Surat</label>
-                            <input type="text" class="form-control" name="asal_surat" placeholder="" />
+                            <label id="label">Tujuan Surat</label>
+                            <label id="label2">Asal Surat</label>
+                            <input type="text" class="form-control" name="asal_surat" required="" placeholder="" />
                         </div>                        
                     </div>
                     
@@ -158,6 +164,7 @@ jQuery(function($){
                         </div>                        
                     </div>
                     
+                    
                     <div class="form-group">                    
                         <div class="col-xs-8">
                             <label>Kata Kunci</label>
@@ -166,13 +173,25 @@ jQuery(function($){
                         </div>                        
                     </div>
                     
+                    
+                    
                 </div>
                 
                 <div class="col-sm-6">
+                
                     <div class="form-group">                    
-                        <div class="col-xs-8">
+                            <div class="col-xs-8">
+                                <label>Tujuan </label>
+                                <input type="text" name="tujuan" class="form-control"/>
+                            </div>                        
+                        </div>
+                    <div class="form-group">                    
+                        <div class="col-xs-5">
                             <label>Lampiran</label>
-                            <input type="file" name="lampiran" class="form-control" />
+                              <div class="input-group">
+                                <input type="text" class="form-control" name="lampiran" />
+                              <span class="input-group-addon">/lembar</span>
+                            </div>
                         </div>                        
                     </div>
                 </div>

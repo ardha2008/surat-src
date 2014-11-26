@@ -106,36 +106,30 @@ if(isset($_GET['as'])){
         require_once 'lib/fpdf.php';
         require_once 'config.php';
         
-        if(isset($_GET['dari']) && isset($_GET['sampai'])){
-            $dari=$_GET['dari'];
-            $sampai=$_GET['sampai'];
-            $query=mysql_query("select * from surat where tanggal_surat between '$dari' and '$sampai' and `delete`='0'");
-            
-            $dari=date('d-m-Y',strtotime($dari));
-            $sampai=date('d-m-Y',strtotime($sampai));
-        }else{
-            $query=mysql_query("select * from surat where `delete`=0 order by tanggal_surat DESC, jenis_surat ASC");    
-        }
-        
-        
         class PDF extends FPDF {
             // Page header
             function Header()
             {
                 // Logo
-                $this->Image('lib/logo/ykpp.png',18,8,19);
-                $this->Image('lib/logo/upn.jpg',170,8,19);
+                $this->Image('lib/logo/upn.jpg',51,11,24);
+                //$this->Image('lib/logo/upn.jpg',170,8,19);
                 // Arial bold 15
-                $this->SetFont('Arial','',12);
+                $this->SetFont('Arial','',14);
                 // Move to the right
                 $this->Cell(80);
                 // Title
-                $this->Cell(30,10,'YAYASAN KESEJAHTERAAN PENDIDIKAN DAN PERUMAHAN',0,0,'C');
-                $this->Cell(-30,20,'UNIVERSITAS PEMBANGUNAN NASIONAL "VETERAN"',0,0,'C');
-                $this->Cell(30,30,'JAWA TIMUR',0,0,'C');
+                $this->Cell(115,10,'KEMENTERIAN PENDIDIKAN DAN KEBUDAYAAN',0,0,'C');
+                $this->SetFont('Arial','',11);
+                $this->Cell(-120,20,'UNIVERSITAS PEMBANGUNAN NASIONAL “VETERAN” JAWA TIMUR',0,0,'C');
+                $this->SetFont('Arial','',9);
+                $this->Cell(120,30,'Jl. Raya Rungkut Madya Gunung Anyar Surabaya 60294',0,0,'C');
+                $this->Cell(-120,40,'Telp. (031) 8706369, 8782086  Fax. (031) 8782086  web : www.upnjatim.ac.id',0,0,'C');
+                
+                $this->SetLineWidth(1,5);
+                $this->Line(40,40,260,40);
                 
                 // Line break
-                $this->Ln(20);
+                $this->Ln(40);
                 
             }
 
@@ -152,52 +146,196 @@ if(isset($_GET['as'])){
                 $this->Cell(10,1,'©2014 Biro Kerjasama Dan Kemahasiswaan UPN "Veteran" Jatim',0,0,'L');
             }
         }
+        
+                if(isset($_GET['dari']) && isset($_GET['sampai'])){
+                    $dari=$_GET['dari'];
+                    $sampai=$_GET['sampai'];
+                    
+                    $dari_x=$dari;
+                    $sampai_x=$sampai;
+                    
+                    $query=mysql_query("select * from surat a,kategori b where a.jenis_surat='masuk' and a.idkategori=b.idkategori and tanggal_surat between '$dari' and '$sampai' and `delete`='0'");
+                    $dari=date('d-m-Y',strtotime($dari));
+                    $sampai=date('d-m-Y',strtotime($sampai));
+                    
+                    $hasil=mysql_fetch_array(mysql_query("select count(*) as jumlah from surat where jenis_surat='masuk' and tanggal_surat between '$dari_x' and '$sampai_x' and `delete`='0'"));
+                    
+                }else{
+                    $query=mysql_query("select * from surat a,kategori b where a.idkategori=b.idkategori and `delete`=0 and a.jenis_surat='masuk' order by tanggal_surat DESC, jenis_surat ASC");    
+                    $hasil=mysql_fetch_array(mysql_query("select count(*) as jumlah from surat where jenis_surat='masuk' and `delete`=0"));
+                }
+        
+        
 
             // Instanciation of inherited class
-            $pdf = new PDF();
+            $pdf = new PDF('L');
             $pdf->AliasNbPages();
             $pdf->AddPage();
             $pdf->SetFont('Times','',11);
-            $pdf->Cell(180,25,'Surabaya, '.date('d F Y'),0,0,'R');
-            $pdf->Ln(1);
+            $pdf->Cell(250,25,'Surabaya, '.date('d F Y'),0,0,'R');
+            $pdf->Ln(0);
             $pdf->SetFont('Times','bu',12);
             
             if(isset($dari) && isset($sampai)){
-                $pdf->Cell(190,45,"Laporan Keseluruhan Surat Keluar Masuk per $dari hingga $sampai",0,0,'C');    
+                $pdf->Cell(290,45,"Laporan Keseluruhan Surat Masuk per $dari hingga $sampai",0,0,'C');    
             }else{
-                $pdf->Cell(190,45,'Laporan Keseluruhan Surat Keluar Masuk',0,0,'C');    
+                $pdf->Cell(270,45,'Laporan Keseluruhan Surat Masuk',0,0,'C');    
+            }
+            
+            
+            $pdf->SetFont('Times','',10);
+            $pdf->Ln(30);
+            #$label=array(1=>'#','Nomer Surat','Perihal');
+            $kolom=array(
+            5,
+            60,
+            50,
+            45,
+            20,
+            50,
+            38);
+            
+            
+            $pdf->Cell($kolom[0],10,'#',1,0,'C');   
+            $pdf->Cell($kolom[4],10,'Tanggal',1,0,'C');
+            $pdf->Cell($kolom[1],10,'No Surat',1,0,'C');
+            $pdf->Cell($kolom[2],10,'Perihal',1,0,'C');
+            $pdf->Cell($kolom[3],10,'Asal',1,0,'C');
+            $pdf->Cell($kolom[6],10,'Tujuan',1,0,'C');
+            $pdf->Cell($kolom[5],10,'Jenis Surat',1,0,'C');
+            //$pdf->Cell($kolom[5],10,'Asal',1,0,'C');            
+
+            $pdf->Ln();
+            
+            for($i=1;$i<=3;$i++){
+                $j=1;while($result=mysql_fetch_array($query)){
+                    
+                    $pdf->Cell($kolom[0],10,$j,'TLBR',0,'C');
+                    $pdf->Cell($kolom[4],10,date('d-m-Y',strtotime($result['tanggal_surat'])),'TBR');
+                    $pdf->Cell($kolom[1],10,$result['idsurat'],'TB');
+                    $pdf->Cell($kolom[2],10,$result['perihal'],'TB');
+                    $pdf->Cell($kolom[3],10,$result['asal_surat'],'TB');
+                    $pdf->Cell($kolom[6],10,$result['tujuan'],'TB');
+                    $pdf->Cell($kolom[5],10,$result['keterangan_kategori'],'TBR');
+                    $pdf->Ln();
+                    $j++;       
+                }
+            }
+            
+            $pdf->Cell(20,10,'Jumlah : '.$hasil['jumlah'],0,0,'R');
+            //$pdf->Ln(5);
+            
+
+//=========================================================INI SURAT KELUAR=================================
+        
+        
+        if(isset($_GET['dari']) && isset($_GET['sampai'])){
+            $dari=$_GET['dari'];
+            $sampai=$_GET['sampai'];
+            
+            $query=mysql_query("select * from surat a,kategori b where a.idkategori=b.idkategori and a.jenis_surat='keluar' and tanggal_surat between '$dari' and '$sampai' and `delete`='0'");
+            $hasil=mysql_fetch_array(mysql_query("select count(*) as jumlah from surat where jenis_surat='keluar' and tanggal_surat between '$dari_x' and '$sampai_x' and `delete`='0'"));
+            
+            //echo "select * from surat a,kategori b where a.idkategori=b.idkategori and tanggal_surat between '$dari' and '$sampai' and `delete`='0'";
+            //exit();
+            
+            $dari=date('d-m-Y',strtotime($dari));
+            $sampai=date('d-m-Y',strtotime($sampai));
+        }else{
+            $query=mysql_query("select * from surat a,kategori b where a.idkategori=b.idkategori and `delete`=0 and a.jenis_surat='keluar' order by tanggal_surat DESC, jenis_surat ASC");    
+            $hasil=mysql_fetch_array(mysql_query("select jenis_surat, count(*) as jumlah from surat where jenis_surat='keluar' and `delete`=0"));
+        }
+        
+            $pdf->SetFont('Times','bu',12);
+            
+            if(isset($dari) && isset($sampai)){
+                $pdf->Cell(250,45,"Laporan Keseluruhan Surat Keluar per $dari hingga $sampai",0,0,'C');    
+            }else{
+                $pdf->Cell(270,45,'Laporan Keseluruhan Surat Keluar',0,0,'C');    
             }
             
             $pdf->SetFont('Times','',10);
             $pdf->Ln(30);
             
             #$label=array(1=>'#','Nomer Surat','Perihal');
-            $kolom=array(8,60,80,20,25);
+          //  $kolom=array(8,60,75,45,20,50);
             
             $pdf->Cell($kolom[0],10,'#',1,0,'C');   
+            $pdf->Cell($kolom[4],10,'Tanggal',1,0,'C');
             $pdf->Cell($kolom[1],10,'No Surat',1,0,'C');
             $pdf->Cell($kolom[2],10,'Perihal',1,0,'C');
-            $pdf->Cell($kolom[3],10,'Jenis',1,0,'C');
-            $pdf->Cell($kolom[4],10,'Tanggal',1,0,'C');
+            $pdf->Cell($kolom[3],10,'Asal',1,0,'C');
+            $pdf->Cell($kolom[6],10,'Tujuan',1,0,'C');
+            $pdf->Cell($kolom[5],10,'Jenis Surat',1,0,'C');
+            //$pdf->Cell($kolom[5],10,'Asal',1,0,'C');            
 
             $pdf->Ln();
             
             for($i=1;$i<=3;$i++){
                 $j=1;while($result=mysql_fetch_array($query)){
-                    if($result['jenis_surat']=='masuk'){
-                        $hasil='S.MASUK';
-                    }else{
-                        $hasil='S.KELUAR';
-                    }
-                    $pdf->Cell($kolom[0],10,$j,'TLB',0,'C');
+                    
+                    $pdf->Cell($kolom[0],10,$j,'TLBR',0,'C');
+                    $pdf->Cell($kolom[4],10,date('d-m-Y',strtotime($result['tanggal_surat'])),'TBR');
                     $pdf->Cell($kolom[1],10,$result['idsurat'],'TB');
                     $pdf->Cell($kolom[2],10,$result['perihal'],'TB');
-                    $pdf->Cell($kolom[3],10,$hasil,'TB');
-                    $pdf->Cell($kolom[4],10,date('d-m-Y',strtotime($result['tanggal_surat'])),'TBR');
+                    $pdf->Cell($kolom[3],10,$result['asal_surat'],'TB');
+                    $pdf->Cell($kolom[6],10,$result['tujuan'],'TB');
+                    $pdf->Cell($kolom[5],10,$result['keterangan_kategori'],'TBR');
                     $pdf->Ln();
                     $j++;       
                 }
             }
+            
+            $pdf->Cell(20,10,'Jumlah : '.$hasil['jumlah'],0,0,'R');
+            
+            //================================LAPORAN KARYAWAN=========================================
+            
+            if(isset($_GET['dari']) && isset($_GET['sampai'])){
+            $dari=$_GET['dari'];
+            $sampai=$_GET['sampai'];
+            
+            $query=mysql_query("select b.nama, count(*) as jumlah from surat a, pegawai b where a.posting = b.idpegawai and tanggal_surat between '$dari' and '$sampai' and a.`delete`='0' group by a.posting");
+            
+            $dari=date('d-m-Y',strtotime($dari));
+            $sampai=date('d-m-Y',strtotime($sampai));
+        }else{
+            $query=mysql_query("select b.nama, count(*) as jumlah from surat a, pegawai b where a.posting = b.idpegawai and a.`delete`='0' group by a.posting");    
+           
+        }
+        
+            $pdf->SetFont('Times','bu',12);
+            
+            if(isset($dari) && isset($sampai)){
+                $pdf->Cell(290,45,"Laporan per $dari hingga $sampai",0,0,'C');    
+            }else{
+                $pdf->Cell(270,45,'Laporan Keseluruhan',0,0,'C');    
+            }
+            
+            $pdf->SetFont('Times','',10);
+            $pdf->Ln(30);
+            
+            #$label=array(1=>'#','Nomer Surat','Perihal');
+            $kolom=array(8,40,20);
+            
+            $pdf->Cell($kolom[0],10,'#',1,0,'C');   
+            $pdf->Cell($kolom[1],10,'Nama',1,0,'C');
+            $pdf->Cell($kolom[2],10,'Jumlah',1,0,'C');
+            
+            //$pdf->Cell($kolom[5],10,'Asal',1,0,'C');            
+
+            $pdf->Ln();
+            
+            //for($i=1;$i<=3;$i++){
+            $j=1;while($result=mysql_fetch_array($query)){
+                    
+                $pdf->Cell($kolom[0],10,$j,'TLBR',0,'C');
+                $pdf->Cell($kolom[1],10,$result['nama'],'TBR');
+                $pdf->Cell($kolom[2],10,$result['jumlah'],'TBR',0,'C');
+                $pdf->Ln();
+                $j++;       
+            }
+                
+            //}
             
             $pdf->Output();
     }

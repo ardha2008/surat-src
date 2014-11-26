@@ -113,15 +113,15 @@ if(isset($_GET['id'])){
             </div>
             
             <div class="col-md-4">
-                    <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-th"></i> Lampiran</div>
+                <div class="panel panel-default">
+                    <div class="panel-heading"><i class="fa fa-th"></i> 5 Data terakhir</div>
             
                     <div class="panel-body">
-                        <div class="thumbnail">
-                            <img src="./img/surat/<?php echo $result['lampiran']; ?>" />
-                        </div>
-                        <input type="hidden" value="<?php echo $result['lampiran']; ?>" name="old_lampiran" />
-                        <input type="file" name="lampiran" class="form-control" />
+                        <ol>
+                            <?php $data=get_last_surat('created_at',5);while($result1=mysql_fetch_array($data)){?>
+                                <li><?= $result1['perihal'] ?></li>
+                            <?php } ?>
+                        </ol>
                     </div>
                 </div>
             </div>
@@ -138,15 +138,15 @@ if(isset($_GET['id'])){
                     
                     <div class="form-group">                    
                         <div class="col-xs-8">
-                            <label>Keterangan Tambahan</label>
-                            <textarea name="catatan" class="form-control"><?php echo $result['catatan'] ?></textarea>
+                            <label><?php if($result['jenis_surat']=='masuk') {echo 'Asal Surat';}else{echo 'Tujuan Surat';} ?></label>
+                            <input type="text" class="form-control" name="asal_surat" value="<?php echo $result['asal_surat'] ?>" placeholder="" />
                         </div>                        
                     </div>
                     
                     <div class="form-group">                    
                         <div class="col-xs-8">
-                            <label>Asal Surat</label>
-                            <input type="text" class="form-control" name="asal_surat" value="<?php echo $result['asal_surat'] ?>" placeholder="" />
+                            <label>Keterangan Tambahan</label>
+                            <textarea name="catatan" class="form-control"><?php echo $result['catatan'] ?></textarea>
                         </div>                        
                     </div>
                     
@@ -158,6 +158,16 @@ if(isset($_GET['id'])){
                         <div class="col-xs-8">
                             <label>Disposisi</label>
                             <input type="text" class="form-control" name="disposisi" value="<?php echo $result['disposisi'] ?>" placeholder="" />
+                        </div>                        
+                    </div>
+                    
+                    <div class="form-group">                    
+                        <div class="col-xs-5">
+                            <label>Lampiran</label>
+                              <div class="input-group">
+                                <input type="text" value="<?php echo $result['lampiran'] ?>" class="form-control" name="lampiran" />
+                              <span class="input-group-addon">/lembar</span>
+                            </div>
                         </div>                        
                     </div>
                     

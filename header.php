@@ -85,11 +85,13 @@ require_once 'config.php';
                           
 					    <?php if(get_login('idbagian')==2 || get_login('idbagian')==3 ){?>
                             <li><a href="./?page=pegawai/index"><i class="fa fa-users"></i> Pegawai</a></li>
-					       <li><a href="./?page=laporan/index"><i class="fa fa-line-chart"></i> Laporan</a></li>
+         			<li><a href="./?page=laporan/index"><i class="fa fa-line-chart"></i> Laporan</a></li>
 					    <?php } ?>
                         
                         <?php if(get_login('idbagian')==3){?>
                             <li><a href="./?page=import/index"><i class="fa fa-cloud"></i> Import</a></li>
+                            <li><a href="./?page=sampah/index"><i class="fa fa-trash"></i> Sampah</a></li>
+                            
                         <?php } ?>
                         
                         

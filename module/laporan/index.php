@@ -163,7 +163,7 @@ $tahun=date('Y');
         </div>
     </div>
   
-    <div class="col-md-6">
+    <div class="col-md-4">
         <div class="panel panel-primary">
         
         <div class="panel-heading"><i class="fa fa-book"></i> CETAK LAPORAN</div>
@@ -255,6 +255,45 @@ $tahun=date('Y');
             </div>
         <?php } ?>
         
+        </div>
+    </div>
+    
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-info"></i> Jumlah
+            </div>
+            
+                <ul class="list-group">
+                  
+                    <?php $data=get_surat_count();while($value=mysql_fetch_array($data)){?>
+                    <li class="list-group-item"><i class="fa fa-envelope"></i> <?php echo $value['kategori'] ?> <span class="badge"><?php echo $value['jumlah'] ?></span></li>
+                    <?php } ?>
+               
+                </ul>
+                
+            
+            
+        </div>
+    </div>
+    
+    
+    <div class="col-md-4">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <i class="fa fa-info"></i> Jumlah posting
+            </div>
+            
+                <ul class="list-group">
+                  
+                    <?php $data=get_count_posting();while($value=mysql_fetch_array($data)){?>
+                    <li class="list-group-item"><i class="fa fa-envelope"></i> <?php echo $value['nama'] ?> <span class="badge"><?php echo $value['jumlah'] ?></span></li>
+                    <?php } ?>
+               
+                </ul>
+                
+            
+            
         </div>
     </div>  
 </div>

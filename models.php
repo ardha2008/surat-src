@@ -5,6 +5,16 @@ function get_pegawai($order_by='created_at'){
     return $query;
 }
 
+function get_surat_by($by,$kondisi,$limit=null){
+    $query=mysql_query("select * from surat where $by='$kondisi' order by $by ASC limit $limit") or die(mysql_error());
+    return $query;
+}
+
+function get_surat_count(){
+    $query=mysql_query("select b.keterangan_kategori as kategori ,count(*) as jumlah from surat a , kategori b where a.idkategori=b.idkategori group by a.idkategori");
+    return $query;
+}
+
 function get_last_pegawai($order_by='created_at',$limit=5){
     $query=mysql_query('select * from pegawai order by created_at DESC limit 5 ');
     return $query;
@@ -24,6 +34,11 @@ function get_login($tampil){
 
 function get_kategori($order_by='idkategori'){
     $query=mysql_query("select * from kategori order by $order_by DESC");
+    return $query;
+}
+
+function get_count_posting(){
+    $query=mysql_query("select nama,count(*) as jumlah from surat a, pegawai b where a.posting=b.idpegawai group by nama");
     return $query;
 }
 
@@ -62,7 +77,7 @@ function get_last_surat($order_by='created_at',$limit=5){
 }
 
 function get_last_login(){
-    $query=mysql_query("select * from login_logs a, users b ,pegawai c,bagian d where a.idusers=b.idusers and b.idusers=c.idpegawai and b.idbagian=d.idbagian order by time limit 2");
+    $query=mysql_query("select * from `logs` a, users b ,pegawai c,bagian d where a.idusers=b.idusers and b.idusers=c.idpegawai and b.idbagian=d.idbagian order by time DESC limit 5");
     return $query;
 }
 
@@ -97,5 +112,28 @@ function cari_laporan($dari,$sampai,$berdasar='surat'){
     return $query;   
 }
 
+//==================================SAMPAH ======================================================================
 
+function get_sampah($filter='semua'){
+    
+    if($filter=='semua'){
+        $query=mysql_query("select * from surat where `delete`='1' order by jenis_surat DESC");    
+    }
+    
+    if($filter=='masuk'){
+        $query=mysql_query("select * from surat where jenis_surat='masuk' and `delete`='1' order by jenis_surat DESC");    
+    }
+    
+    if($filter=='keluar'){
+        $query=mysql_query("select * from surat where jenis_surat='keluar' and `delete`='1' order by jenis_surat DESC");    
+    }
+    
+    return $query;
+}
+
+function count_sampah(){
+    $query=mysql_query("select count(*) as jumlah from surat where `delete`='1' ");
+    $return=mysql_fetch_array($query);
+    return $return['jumlah'] ;
+}
 ?>

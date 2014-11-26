@@ -21,8 +21,6 @@ if (isset($_SESSION['login']) && $_SESSION['login'] == true)
     require_once 'module/home.php';
 }
 
-?>
-<?php
 
 require 'footer.php';
 

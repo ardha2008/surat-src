@@ -18,6 +18,7 @@
                     <table class="table table-stripped table-hover table-responsive">
                         <thead>
                             <th>No</th>
+                            <th>Tanggal</th>
                             <th>No Surat</th>
                             <th>Perihal</th>
                             
@@ -28,6 +29,7 @@
                             <?php $surat=riwayat(get_login('idusers'));$i=1;while($result=mysql_fetch_array($surat)){?>
                                 <tr>
                                 <td><?= $i ?></td>
+                                <td><?= $result['tanggal_surat'] ?></td>
                                 <td><?= $result['idsurat'] ?></td>
                                 <td><a href="./?page=surat/detail&id=<?php echo $result['idsurat'] ?>"><?= $result['perihal'] ?></a></td>
                                 <td>

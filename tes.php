@@ -2,6 +2,14 @@
 require_once 'config.php';
 
 if(isset($_POST['upload'])){
+    $q=mysql_query("select * from surat");
+    $hasil=mysql_fetch_assoc($q);
+    $a=json_encode($hasil);
+    print_r($a);
+}
+
+/*
+if(isset($_POST['upload'])){
     
     $result=explode(' ',$_POST['cari']);
     //print_r($result);
@@ -22,7 +30,7 @@ if(isset($_POST['upload'])){
 //echo $str_query;
     //$query=mysql_query();
 }
-
+*/
 ?>
 
 <form method="post" enctype="multipart/form-data">

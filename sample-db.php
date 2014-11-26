@@ -1,5 +1,3 @@
-
-
 <?php 
 
 require_once 'config.php';
@@ -34,14 +32,17 @@ $perihal_b=$perihal[$perihal_x].'-'.rand(2000,2014);
 $public=rand(0,1);
 //echo $public;
 
+$kategori=array('B','PENG','SKEP','SPENG','SPRINT','ST','UND');
+$kategori_x=array_rand($kategori);
+$kategori_b=$kategori[$kategori_x];
 
+$posting=array('1134010049','1134010050','1134010051','1134010051');
+$posting_x=array_rand($posting);
+$posting_b=$posting[$posting_x];
 
-	$a=mysql_query("insert into surat (idsurat,jenis_surat,tanggal_surat,perihal,public) values ('$idsurat','$srt','$tgl_surat','$perihal_b',$public) ",$koneksi) or die(mysql_error());
-	if($a){
-		echo "Data ke $i masuk<br/>";
-	}
-
-
+for($i=1;$i<=50;$i++){
+    $a=mysql_query("insert into surat (idsurat,jenis_surat,tanggal_surat,idkategori,posting,perihal,public) values ('$idsurat','$srt','$tgl_surat','$kategori_b','$posting_b','$perihal_b',$public) ",$koneksi) or die(mysql_error());
+}
 
 
 ?>

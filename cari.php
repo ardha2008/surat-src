@@ -1,6 +1,15 @@
 <?php require_once 'header.php';?>
 
 <?php $bulan=array(1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember'); ?>
+
+<?php 
+
+//$bulan=array(1=>'Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des') ;
+$tanggal=date('j');
+$bulan_x=date('m');
+$tahun=date('Y');
+?>
+
 <div class="row">
 
     <div class="alert alert-info"><i class="fa fa-info"> </i> Fitur pencarian berguna untuk mencari data surat </div>
@@ -14,7 +23,7 @@
               <label class="sr-only"></label>
                 <select class="form-control" name="tanggal">
                     <?php for($i=1;$i<=31;$i++){?>
-                        <option value="<?php if($i<10){echo '0'.$i ;}else{ echo $i;}?>"><?php if($i<10){echo '0'.$i ;}else{ echo $i;}?></option>
+                        <option value="<?php if($i<10){echo '0'.$i ;}else{ echo $i;}?>"<?php if($i==$tanggal) echo 'selected' ?> ><?php if($i<10){echo '0'.$i ;}else{ echo $i;}?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -25,7 +34,7 @@
               <label class="sr-only"></label>
                 <select class="form-control" name="bulan">
                     <?php for($i=1;$i<=12;$i++){?>
-                        <option value="<?php if($i<10){echo '0'.$i ;}else{ echo $i;}?>"><?php echo $bulan[$i] ?></option>
+                        <option value="<?php if($i<10){echo '0'.$i ;}else{ echo $i;}?>"<?php if($i==$bulan_x) echo 'selected' ?> ><?php echo $bulan[$i] ?></option>
                     <?php } ?>
                 </select>
             </div>
@@ -56,7 +65,7 @@
                 <div class="panel-body">
                 
                     <div class="thumbnail">
-                        <img src="./img/surat/<?php echo $result['lampiran'] ?>" />
+                        <img title="<?php echo $result['perihal'] ?>" src="./img/surat/<?php echo $result['lampiran'] ?>" />
                     </div>
                     
                     <?php echo $result['catatan'] ?>
