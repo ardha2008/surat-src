@@ -1,3 +1,5 @@
+<?php lock('3') ?>
+
 <div class="row clearfix">
 
 	<div class="col-md-12">

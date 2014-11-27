@@ -11,8 +11,8 @@
         -->
     </div>
     
-    <?php if(get_login('idbagian')==0){?>
-        <div class="col-lg-12">
+    
+        <!--<div class="col-lg-12">
             <div class="col-md-4">
                 <div class="panel panel-default">
                     <div class="panel-heading"><i class="fa fa-info"></i> Info</div>
@@ -38,8 +38,8 @@
                 
                 </div>
             </div>
-            </div>
-    <?php }else{?>
+            </div>-->
+    
  
     <div class="col-lg-12">
         <div class="col-md-8">
@@ -127,7 +127,7 @@
     
     </div>
 
-    <?php } ?>
+    
 
 
     

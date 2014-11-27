@@ -51,25 +51,11 @@ $(document).ready(function(){
                               </div>
                               
                               <?php if(get_login('idbagian')==0){?>
-                                <input type="hidden" name="jenis_surat" value="masuk" />
-                              <?php }else{?>
-                                <div class="form-group">
-                                    <label class="col-sm-3 control-label"></label>
-                                    <div class="col-sm-5">
-                                      <div class="radio">
-                                          <label>
-                                            <input type="radio" id="rad1" name="jenis_surat" required="" value="masuk" />
-                                            Surat Masuk
-                                          </label>
-                                        </div>
-                                        <div class="radio">
-                                          <label>
-                                            <input type="radio" id="rad2" name="jenis_surat" required="" value="keluar"/>
-                                            Surat Keluar
-                                          </label>
-                                        </div>
-                                    </div>
-                                </div>
+                              <input type="hidden" name="jenis_surat" value="keluar" />  
+                              <?php } ?>
+                              
+                              <?php if(get_login('idbagian')==1){?>
+                              <input type="hidden" name="jenis_surat" value="masuk" />  
                               <?php } ?>
                             
                             <div class="form-group">

@@ -1,3 +1,5 @@
+<?php lock('2') ?>
+
 <script type="text/javascript">
 FusionCharts.ready(function () {
     var demographicsChart = new FusionCharts({

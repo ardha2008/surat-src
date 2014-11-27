@@ -136,4 +136,13 @@ function count_sampah(){
     $return=mysql_fetch_array($query);
     return $return['jumlah'] ;
 }
+
+
+//=====================================LOCK=============================================================
+
+function lock($i){
+    if(get_login('idbagian')!=$i){
+        die('Restricted');
+    }
+}
 ?>

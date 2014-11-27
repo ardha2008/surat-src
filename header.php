@@ -73,20 +73,14 @@ require_once 'config.php';
 						
                         <?php if(isset($_SESSION['login']) && $_SESSION['login']==true){?>
                         
-		                <li><a href="./?page=dashboard"><i class="fa fa-home"></i> Dashboard</a></li> 
-                        
-                        <?php if(get_login('idbagian')>=0 && get_login('idbagian')<=3 ){?>
-                            <li><a href="./?page=surat/riwayat"><i class="fa fa-newspaper-o"></i> Riwayat</a></li>
-                        <?php } ?>
-                        
-                        <?php if(get_login('idbagian')>0){?>
-                            <li><a href="./?page=surat/index"><i class="fa fa-envelope"></i> Surat</a></li>
-                        <?php } ?>
+		                <li><a href="./?page=dashboard"><i class="fa fa-home"></i> Dashboard</a></li>
+                        <li><a href="./?page=surat/riwayat"><i class="fa fa-newspaper-o"></i> Riwayat</a></li>
+                        <li><a href="./?page=surat/index"><i class="fa fa-envelope"></i> Surat</a></li>
                           
-					    <?php if(get_login('idbagian')==2 || get_login('idbagian')==3 ){?>
-                            <li><a href="./?page=pegawai/index"><i class="fa fa-users"></i> Pegawai</a></li>
-         			<li><a href="./?page=laporan/index"><i class="fa fa-line-chart"></i> Laporan</a></li>
-					    <?php } ?>
+					    
+                        <li><a href="./?page=pegawai/index"><i class="fa fa-users"></i> Pegawai</a></li>
+                        <li><a href="./?page=laporan/index"><i class="fa fa-line-chart"></i> Laporan</a></li>
+					    
                         
                         <?php if(get_login('idbagian')==3){?>
                             <li><a href="./?page=import/index"><i class="fa fa-cloud"></i> Import</a></li>
@@ -147,7 +141,7 @@ require_once 'config.php';
 					<?php if(isset($_SESSION['login']) && $_SESSION['login']==true){?>
 		                  <ul class="nav navbar-nav navbar-right">	
     						<li class="dropdown">
-    							 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> Akun<strong class="caret"></strong></a>
+    							 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i> <?php echo get_login('nama') ?><strong class="caret"></strong></a>
     							<ul class="dropdown-menu">
     								<li><a href="./?page=account"><i class="fa fa-lock"></i> Ubah sandi</a></li>
     								<li class="divider"></li>
