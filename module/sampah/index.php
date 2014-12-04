@@ -1,6 +1,7 @@
 <div class="row">
 
     <div class="alert alert-info"> <strong> <i class="fa fa-info"></i> Berfungsi sebagai tempat data di hapus</strong></div>
+    <?php if(isset($_SESSION['message']) && $_SESSION['message']==true){?><div class="alert alert-success"> <strong> <i class="fa fa-info"></i> File berhasil dikembalikan</strong></div><?php unset($_SESSION['message']); } ?>
     <div class="col-md-8">
         <div class="panel panel-primary">
         <div class="panel-heading"><i class="fa fa-trash"></i> Tempat Sampah</div>
@@ -22,7 +23,7 @@
                             <td><?php echo $result['tanggal_surat'] ?></td>
                             <td><?php echo $result['idsurat'] ?></td>
                             <td><?php echo $result['perihal'] ?></td>
-                            <td><button class="btn btn-danger"><i class="fa fa-reply"></i> Restore</button></td>
+                            <td><a href="./?page=sampah/restore&id=<?php echo $result['idsurat']; ?>"><button class="btn btn-primary"><i class="fa fa-reply"></i> Restore</button></a></td>
                         </tr>
                     <?php $i++; } ?>
                 </tbody>

@@ -4,6 +4,22 @@
 //    if(get_login('idbagian') != $hak_akses) exit('Restricted');
 //}
 //
+function filter($input){
+    $input=trim($input);
+    $input=strip_tags($input);
+    $input=nl2br($input);
+    $input=addslashes($input);
+    $input=stripslashes($input);
+    $input=str_ireplace("'", "%", $input);
+    $input=str_ireplace( "''", '%', $input );
+    $input=str_ireplace( '""', '%', $input );
+    $query = preg_replace( '|(?<!%)%s|', "'%s'", $input );
+    $input=htmlentities($input, ENT_QUOTES);
+    $input=ltrim($input);
+    $input=rtrim($input);
+return $input;
+}
+
 function encrypt($string=null){
    // if($string==null) exit('Cek parameter');
     
@@ -65,7 +81,7 @@ if(isset($_POST['tambah_pegawai'])){
     $ponsel=$_POST['ponsel'];
     
     //Default password
-    $password=encrypt($tl);
+    $password=encrypt('1234');
     
     //Bagian
     $bagian=$_POST['bagian'];
@@ -192,7 +208,14 @@ if(isset($_POST['tambah_surat'])){
     $query=mysql_query("INSERT INTO surat (idsurat, jenis_surat, tanggal_surat, idkategori ,perihal, tujuan, asal_surat,disposisi,kata_kunci,posting,public,lampiran) VALUES ('$id', '$jenis_surat', '$tanggal_surat','$kategori','$perihal', '$catatan', '$asal_surat','$disposisi','$keyword','$posting','$publikasi','$foto')") or die(mysql_error());
     
     if($query){
+    
         $success=1;
+        
+        if(SMS_GATEWAY == true){
+            $text="$tanggal_surat - $idsurat - Surat $jenis_surat - $perihal";
+            $send=true;
+        }
+    
     }
 /**
  *  CATATAN : LAMPIRAN AKAN DIBUAT DINAMIK;
@@ -442,6 +465,17 @@ if(isset($_POST['cetak_laporan'])){
     
 }
 
+//=================================================================
+//=========================DATA RESTORE============================
+//=================================================================
+
+
+if(isset($_GET['page']) && $_GET['page']=='sampah/restore' && isset($_GET['id'])){
+    $id=$_GET['id'];
+    $update=mysql_query("update surat set `delete`='0' where idsurat='$id' ");
+    $_SESSION['message']=true;
+    header('Location:./?page=sampah/index');
+}
 
 ?>
 

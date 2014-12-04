@@ -2,7 +2,7 @@
     <div class="col-lg-12">
         <?php if(!$diakses->isMobile()){?>
         
-        <div class="carousel slide" id="carousel-351745">
+        <!--<div class="carousel slide" id="carousel-351745">
 				<ol class="carousel-indicators">
 					<li data-slide-to="0" data-target="#carousel-351745">
 					</li>
@@ -46,7 +46,7 @@
 						</div>
 					</div>
 				</div> <a class="left carousel-control" href="#carousel-351745" data-slide="prev"><span class="glyphicon glyphicon-chevron-left"></span></a> <a class="right carousel-control" href="#carousel-351745" data-slide="next"><span class="glyphicon glyphicon-chevron-right"></span></a>
-			</div>
+			</div>-->
         <?php } ?>
             <hr />
     </div>
@@ -150,7 +150,7 @@
     				            <div class="alert alert-danger"><i class="fa fa-warning"></i> Gagal login</div>
     				        <?php } ?>
             				<div class="form-group">
-            					 <input type="text" name="id" value="1134010049" class="form-control"  placeholder="ID" />
+            					 <input type="text" name="id" class="form-control"  placeholder="ID" />
             				</div>
             				<div class="form-group">
             					 <input type="password" name="password" class="form-control" placeholder="Password, ex: ardha" />
@@ -174,11 +174,13 @@
                     
     				<div class="panel-body">
                         
-                        <li><strong>Superadmin</strong><br />ID:1134010049<br />password: ardha</li>
+                        <strong>Superadmin</strong><br />ID:1134010049<br />password: ardha
                         <hr />
-                        <li><strong>Kepala Staff</strong><br />ID:1134010050<br />password: ardha</li>
+                        <strong>Kepala Staff</strong><br />ID:1134010050<br />password: ardha
                         <hr />
-                        <li><strong>Staff</strong><br />ID:1134010051<br />password: ardha</li>
+                        <strong>Surat Keluar</strong><br />ID:1134010051<br />password: ardha
+                        <hr />
+                        <strong>Surat Masuk</strong><br />ID:1134010052<br />password: ardha
     				</div>
     			</div>	
 		</div>

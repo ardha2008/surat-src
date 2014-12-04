@@ -83,6 +83,7 @@ require_once 'config.php';
 					    
                         
                         <?php if(get_login('idbagian')==3){?>
+                            <li><a href="./?page=users/index"><i class="fa fa-users"></i> Users</a></li>
                             <li><a href="./?page=import/index"><i class="fa fa-cloud"></i> Import</a></li>
                             <li><a href="./?page=sampah/index"><i class="fa fa-trash"></i> Sampah</a></li>
                             

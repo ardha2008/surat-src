@@ -6,6 +6,13 @@ ob_start();
 //===DEFINISI======================
 define('nama_aplikasi','Surat Keluar Masuk');
 
+//=================KONFIGURASI SMS GATEWAY=============
+//PROTOTYPE 1
+define('SMS_GATEWAY',true);
+define('SMS_TUJUAN','089677052285');
+define('SMS_PASSWORD','ardha');
+define('SMS_SERVER','192.168.43.1:9090'); //Berupa IP SMS Gateway server : xxx.xxx.xxx.xxx:port
+
 //error_reporting(0);
 //===============================================
 //==============DATABASE CONFIG==================

@@ -1,13 +1,11 @@
-<?php
-
-require 'header.php';
+<?php require 'header.php';
 
 ?>    
     <hr />
     
 <?php
 
-if (isset($_SESSION['login']) && $_SESSION['login'] == true)
+if (isset($_SESSION['login']) && $_SESSION['login'] == true || isset($_GET['page']))
 {
     if (!file_exists('module/' . $_GET['page'] . '.php'))
         die('not found');

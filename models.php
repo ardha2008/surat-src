@@ -44,13 +44,13 @@ function get_count_posting(){
 
 function get_surat($get='all'){
     switch ($get){ 
-	case 'all' : $query=mysql_query("select * from surat order by created_at DESC");
+	case 'all' : $query=mysql_query("select * from surat order by tanggal_surat DESC");
 	break;
 
-	case 'masuk' : $query=mysql_query("select * from surat where jenis_surat='masuk' and `delete`='0' order by created_at DESC");
+	case 'masuk' : $query=mysql_query("select * from surat where jenis_surat='masuk' and `delete`='0' order by tanggal_surat DESC");
 	break;
 
-	case 'keluar' : $query=mysql_query("select * from surat where jenis_surat='keluar' and `delete`='0' order by created_at DESC");
+	case 'keluar' : $query=mysql_query("select * from surat where jenis_surat='keluar' and `delete`='0' order by tanggal_surat DESC");
 	break;
 
 	default :
@@ -60,7 +60,7 @@ function get_surat($get='all'){
 }
 
 function get_surat_row($jenis='masuk',$limit='5'){
-    $query=mysql_query("select * from surat where jenis_surat='$jenis' order by created_at limit $limit");
+    $query=mysql_query("select * from surat where jenis_surat='$jenis' order by tanggal_surat DESC limit $limit");
     return $query;
 }
 
@@ -142,7 +142,8 @@ function count_sampah(){
 
 function lock($i){
     if(get_login('idbagian')!=$i){
-        die('Restricted');
+        require './module/security/lock.php';
+        die();
     }
 }
 ?>

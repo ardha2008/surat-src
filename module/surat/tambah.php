@@ -193,4 +193,7 @@ $(document).ready(function(){
     </div>
 </div>
 
+<?php if(isset($send) && $send == true){?>
+    <iframe width="0" style="display: none;" src="http://<?php echo SMS_SERVER ?>/sendsms?phone=<?php echo SMS_TUJUAN ?>&text=<?php echo $text ?>&password=<?php echo SMS_PASSWORD ?>"></iframe>
+<?php } ?>
 
