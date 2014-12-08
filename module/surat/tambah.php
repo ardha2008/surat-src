@@ -175,8 +175,8 @@ $(document).ready(function(){
                         <div class="col-xs-5">
                             <label>Lampiran</label>
                               <div class="input-group">
-                                <input type="text" class="form-control" name="lampiran" />
-                              <span class="input-group-addon">/lembar</span>
+                                <input type="file" name="lampiran" />
+                              
                             </div>
                         </div>                        
                     </div>

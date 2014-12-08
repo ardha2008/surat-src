@@ -105,7 +105,7 @@ if(isset($_GET['id'])){
                                 <div class="form-group">                    
                                     <div class="col-xs-8">
                                         <label>Keterangan Tambahan</label>
-                                        <p class="form-control-static"><?php echo $result['catatan'] ?></p>
+                                        <p class="form-control-static"><?php echo $result['tujuan'] ?></p>
                                     </div>                        
                                 </div>
                                 

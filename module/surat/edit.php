@@ -43,7 +43,7 @@ if(isset($_GET['id'])){
                                 </div>
                               </div>
                               
-                              <?php if(get_login('idbagian')==0){?>
+                              <?php if(get_login('idbagian')==0 || get_login('idbagian')==1){?>
                                 <input type="hidden" name="jenis_surat" value="<?php echo $result['jenis_surat'] ?>" />
                               <?php }else{?>
                                 <div class="form-group">
@@ -113,15 +113,14 @@ if(isset($_GET['id'])){
             </div>
             
             <div class="col-md-4">
-                <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-th"></i> 5 Data terakhir</div>
+                    <div class="panel panel-default">
+                    <div class="panel-heading"><i class="fa fa-th"></i> LAMPIRAN</div>
             
                     <div class="panel-body">
-                        <ol>
-                            <?php $data=get_last_surat('created_at',5);while($result1=mysql_fetch_array($data)){?>
-                                <li><?= $result1['perihal'] ?></li>
-                            <?php } ?>
-                        </ol>
+                        <div class="thumbnail">
+                            <img src="./img/surat/<?php echo $result['lampiran'] ?>" />
+                        </div>
+                        <input type="file" class="btn btn-primary" name="lampiran" />
                     </div>
                 </div>
             </div>
@@ -145,8 +144,8 @@ if(isset($_GET['id'])){
                     
                     <div class="form-group">                    
                         <div class="col-xs-8">
-                            <label>Keterangan Tambahan</label>
-                            <textarea name="catatan" class="form-control"><?php echo $result['catatan'] ?></textarea>
+                            <label>Tujuan</label>
+                            <textarea name="catatan" class="form-control"><?php echo $result['tujuan'] ?></textarea>
                         </div>                        
                     </div>
                     
@@ -161,15 +160,6 @@ if(isset($_GET['id'])){
                         </div>                        
                     </div>
                     
-                    <div class="form-group">                    
-                        <div class="col-xs-5">
-                            <label>Lampiran</label>
-                              <div class="input-group">
-                                <input type="text" value="<?php echo $result['lampiran'] ?>" class="form-control" name="lampiran" />
-                              <span class="input-group-addon">/lembar</span>
-                            </div>
-                        </div>                        
-                    </div>
                     
                     <div class="form-group">                    
                         <div class="col-xs-8">

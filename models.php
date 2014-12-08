@@ -131,8 +131,23 @@ function get_sampah($filter='semua'){
     return $query;
 }
 
-function count_sampah(){
-    $query=mysql_query("select count(*) as jumlah from surat where `delete`='1' ");
+function count_sampah($filter='all'){
+    
+    switch($filter){
+        
+        case 'masuk':
+        $query=mysql_query("select count(*) as jumlah from surat where jenis_surat='masuk' and `delete`='1' ");
+        break;
+        
+        case 'keluar':
+        $query=mysql_query("select count(*) as jumlah from surat where jenis_surat='keluar' and `delete`='1' ");
+        break;
+        
+        default:
+        $query=mysql_query("select count(*) as jumlah from surat where `delete`='1' ");
+        break;
+    }
+    
     $return=mysql_fetch_array($query);
     return $return['jumlah'] ;
 }

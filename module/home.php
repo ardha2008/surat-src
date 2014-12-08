@@ -59,9 +59,174 @@
 		  <div class="col-md-9 column">        
             <div class="alert alert-info">
             <p>
-				Aplikasi ini masih dalam tahap pengembangan, Binary  : <strong><?php echo sha1('v.2.1') ?></strong>.
+				Aplikasi ini masih dalam tahap pengembangan, Binary  : <strong><?php echo sha1('skripsi') ?></strong>.
 			</p>
             </div>
+            <?php $ya='<i class="glyphicon glyphicon-ok"></i>';$tidak='<i class="glyphicon glyphicon-minus"></i>' ?>
+            <table class="table table-striped">
+                <thead>
+                    <th class="danger">Bagian <br />/ Hak Akses</th>
+                    <th class="danger">Staf <br />Surat Keluar</th>
+                    <th class="danger">Staf <br />Surat Masuk</th>
+                    <th class="danger">Kepala<br />Staff</th>
+                    <th class="danger">Admin</th>
+                </thead>
+                
+                <tbody>
+                    <tr>
+                        <td class="success"><strong>Membuat Surat Keluar</strong></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="success"><strong>Melihat Surat Keluar</strong></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="success"><strong>Mengubah Surat Keluar</strong></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="success"><strong>Menghapus Surat Keluar</strong></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="success"><strong>Mencari Surat Keluar</strong></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="info"><strong>Membuat Surat Masuk</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="info"><strong>Melihat Surat Masuk</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="info"><strong>Mengubah Surat Masuk</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="info"><strong>Menghapus Surat Masuk</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="info"><strong>Mencari Surat Masuk</strong></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="active"><strong>Membuat Data Pegawai</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="active"><strong>Melihat Data Pegawai</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="active"><strong>Mengubah Data Pegawai</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="active"><strong>Menghapus Data Pegawai</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $ya ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="success"><strong>Melihat Laporan <br /><small>(harian, bulanan, per tanggal)</small> </strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="success"><strong>Mencetak / mengunduh Laporan</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                        <td><?php echo $tidak ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="warning"><strong>Backup Database</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="warning"><strong>Reset Users</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                    </tr>
+                    
+                    <tr>
+                        <td class="warning"><strong>Mengubah Hak Akses</strong></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $tidak ?></td>
+                        <td><?php echo $ya ?></td>
+                    </tr>
+                
+                </tbody>
+            </table>
  
             
 			<div class="row clearfix">

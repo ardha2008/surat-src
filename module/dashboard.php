@@ -46,7 +46,7 @@
             <div class="col-md-6">
             <div class="panel panel-primary">
             <div class="panel-heading">
-                <i class="fa fa-info"></i> Surat Masuk 
+                <i class="fa fa-th"></i> 5 Surat Masuk terakhir
             </div>
             
             
@@ -55,10 +55,6 @@
                     <li class="list-group-item"><i class="fa fa-envelope"></i> <a href="./?page=surat/detail&id=<?php echo $value['idsurat'] ?>"><?php echo $value['perihal'] ?></a> </li>
                 <?php } ?>
                 </ul>
-                
-            <div class="panel-footer">
-                <a href="./?page=surat/index">Selengkapnya</a>
-            </div>
             
         </div>
     </div>
@@ -66,7 +62,7 @@
     <div class="col-md-6">
         <div class="panel panel-primary">
             <div class="panel-heading">
-                <i class="fa fa-info"></i> Surat Keluar 
+                <i class="fa fa-th"></i> 5 Surat Keluar terakhir
             </div>
             
                 <ul class="list-group">
@@ -76,10 +72,6 @@
                     <?php } ?>
                
                 </ul>
-                
-            <div class="panel-footer">
-                Selengkapnya ...
-            </div>
             
         </div>
     </div>
@@ -97,10 +89,6 @@
                     <?php } ?>
                
                 </ul>
-                
-            <div class="panel-footer">
-                Selengkapnya ...
-            </div>
             
         </div>
     </div>
@@ -118,10 +106,7 @@
                         <li class="list-group-item"><i class="fa fa-users"></i> <?php echo $logs['nama'] ?> [ <?php echo $logs['time']?> ]</li>
                         <?php } ?>
                     </ul>
-                
-                <div class="panel-footer">
-                    <button class="btn btn-default">More ...</button>
-                </div>
+            
             </div>
         </div>
     

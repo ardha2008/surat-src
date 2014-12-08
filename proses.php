@@ -1,5 +1,17 @@
 <?php
 
+/**
+ * Simple Core v.1
+ * Struktur core / Index
+ * - Function
+ * - Home , ex : login, logout, etc
+ * - Surat
+ * - Pegawai
+ * - Report
+ * - Users
+ * 
+ */
+
 //function lock($hak_akses){
 //    if(get_login('idbagian') != $hak_akses) exit('Restricted');
 //}
@@ -185,8 +197,8 @@ if(isset($_POST['tambah_surat'])){
     * HILANGKAN KOMENTAR DIBAWAH INI
     * 
     */
-       $foto=$_POST['lampiran'];
-    /**if(isset($_FILES['lampiran']['tmp_name'])){
+    //   $foto=$_POST['lampiran'];
+    if(isset($_FILES['lampiran']['tmp_name'])){
         $new_name=random().'.jpeg';
     
         $target_path = './img/surat/';
@@ -203,7 +215,7 @@ if(isset($_POST['tambah_surat'])){
         $foto='no_lampiran.jpeg';
     }
     
-    */
+    
     
     $query=mysql_query("INSERT INTO surat (idsurat, jenis_surat, tanggal_surat, idkategori ,perihal, tujuan, asal_surat,disposisi,kata_kunci,posting,public,lampiran) VALUES ('$id', '$jenis_surat', '$tanggal_surat','$kategori','$perihal', '$catatan', '$asal_surat','$disposisi','$keyword','$posting','$publikasi','$foto')") or die(mysql_error());
     
@@ -212,7 +224,7 @@ if(isset($_POST['tambah_surat'])){
         $success=1;
         
         if(SMS_GATEWAY == true){
-            $text="$tanggal_surat - $idsurat - Surat $jenis_surat - $perihal";
+            $text="$tanggal_surat - $id - Surat $jenis_surat - $perihal";
             $send=true;
         }
     
@@ -251,9 +263,9 @@ if(isset($_POST['update_surat'])){
     * HILANGKAN KOMENTAR DIBAWAH INI
     * 
     */
-    $foto=$_POST['lampiran'];
+    //$foto=$_POST['lampiran'];
     
-    /*  
+      
     if(isset($_FILES['lampiran']['tmp_name'])){
         
         $new_name=random().'.jpeg';
@@ -273,7 +285,7 @@ if(isset($_POST['update_surat'])){
     }else{
         $foto=$_POST['old_lampiran'];
     }
-    */
+    
     $query="UPDATE surat SET 
     idsurat='$id',
     jenis_surat='$jenis_surat', 
@@ -475,6 +487,20 @@ if(isset($_GET['page']) && $_GET['page']=='sampah/restore' && isset($_GET['id'])
     $update=mysql_query("update surat set `delete`='0' where idsurat='$id' ");
     $_SESSION['message']=true;
     header('Location:./?page=sampah/index');
+}
+
+//=================================================================
+//=========================RESET PASSWORD==========================
+//=================================================================
+if(isset($_POST['reset-password'])){
+    $id=$_POST['id'];
+    $password=encrypt($_POST['password']);
+    
+    $query=mysql_query("update users set password='$password' where idusers='$id'") or die(mysql_error());
+    if($query){
+        $success=true;
+        $_POST['id-reset']=$id;
+    }
 }
 
 ?>
