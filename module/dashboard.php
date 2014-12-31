@@ -103,7 +103,7 @@
                 
                     <ul class="list-group">
                         <?php $data=get_last_login();while($logs=mysql_fetch_array($data)){?>
-                        <li class="list-group-item"><i class="fa fa-users"></i> <?php echo $logs['nama'] ?> [ <?php echo $logs['time']?> ]</li>
+                        <li class="list-group-item"><i class="fa fa-users"></i> <?php echo $logs['nama'] ?> [ <?php echo $logs['waktu']?> ]</li>
                         <?php } ?>
                     </ul>
             

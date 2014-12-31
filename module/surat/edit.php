@@ -1,8 +1,3 @@
-<script>
-jQuery(function($){
-   $("#tl").mask("9999/99/99");
-});
-</script>
 
 <?php 
 if(isset($_GET['id'])){ 
@@ -13,6 +8,11 @@ if(isset($_GET['id'])){
     } 
      
 //print_r($result);exit() ?>
+<script>
+jQuery(function($){
+   $("#tl").mask("9999/99/99");
+});
+</script>
 
 <div class="row clearfix">
 	
@@ -93,13 +93,13 @@ if(isset($_GET['id'])){
                                 <div class="col-sm-5">
                                   <div class="radio">
                                       <label>
-                                        <input type="radio" name="publikasi" required="" value="1" <?php if($result['public'] == '1') echo 'checked'?> />
+                                        <input type="radio" name="publikasi" required="" value="1" <?php if($result['publikasi'] == '1') echo 'checked'?> />
                                         Publikasi
                                       </label>
                                     </div>
                                     <div class="radio">
                                       <label>
-                                        <input type="radio" name="publikasi" required="" value="0" <?php if($result['public'] == '0') echo 'checked'?> />
+                                        <input type="radio" name="publikasi" required="" value="0" <?php if($result['publikasi'] == '0') echo 'checked'?> />
                                         Rahasia
                                       </label>
                                     </div>
@@ -120,6 +120,7 @@ if(isset($_GET['id'])){
                         <div class="thumbnail">
                             <img src="./img/surat/<?php echo $result['lampiran'] ?>" />
                         </div>
+                        <input type="hidden" name="old_lampiran" value="<?php echo $result['lampiran'] ?>" />
                         <input type="file" class="btn btn-primary" name="lampiran" />
                     </div>
                 </div>
@@ -128,56 +129,79 @@ if(isset($_GET['id'])){
               
         </fieldset>
         
-        <div class="col-lg-12">
+        <div class="col-md-4">
             <div class="panel panel-default">
-            <div class="panel-heading"><i class="fa fa-user"></i> Informasi Lainnya</div>
-        
-            <div class="panel-body">
-                <div class="col-sm-6">
-                    
-                    <div class="form-group">                    
-                        <div class="col-xs-8">
-                            <label><?php if($result['jenis_surat']=='masuk') {echo 'Asal Surat';}else{echo 'Tujuan Surat';} ?></label>
-                            <input type="text" class="form-control" name="asal_surat" value="<?php echo $result['asal_surat'] ?>" placeholder="" />
-                        </div>                        
-                    </div>
-                    
-                    <div class="form-group">                    
-                        <div class="col-xs-8">
-                            <label>Tujuan</label>
-                            <textarea name="catatan" class="form-control"><?php echo $result['tujuan'] ?></textarea>
-                        </div>                        
-                    </div>
-                    
-                </div>
+                <div class="panel-heading"><i class="fa fa-user"></i> Informasi Lainnya</div>
                 
-                <div class="col-sm-6">
-                    
-                    <div class="form-group">                    
-                        <div class="col-xs-8">
+                <div class="panel-body">
+                     <div class="form-group">                    
+                        <div class="col-xs-12">
                             <label>Disposisi</label>
-                            <input type="text" class="form-control" name="disposisi" value="<?php echo $result['disposisi'] ?>" placeholder="" />
+                            <input type="text" class="form-control" name="disposisi" value="<?php echo $result['disposisi']  ?>" placeholder="" />
                         </div>                        
                     </div>
                     
                     
                     <div class="form-group">                    
-                        <div class="col-xs-8">
-                            <label>Kata Kunci</label>
-                            <input type="text" class="form-control" name="keyword" value="<?php echo $result['kata_kunci']; ?>" placeholder="" />
-                            <small>*dipisahkan dengan koma</small>
+                        <div class="col-xs-12">
+                            <label>Catatan</label>
+                            <input type="text" class="form-control" value="<?php echo $result['catatan']  ?>" name="keyword" placeholder="" />
                         </div>                        
                     </div>
-                    
+ 
                 </div>
-                
-                
-                
-                <div class="clearfix"></div><hr />
-                <button type="submit" name="update_surat" class="btn btn-success"><i class="fa fa-save"></i> Perbarui</button>
             </div>
         </div>
+        
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-user"></i> Tujuan surat</div>
+                
+                <div class="panel-body">
+                     
+                    <div class="form-group">                    
+
+                            <div class="col-xs-12">
+                                <label>Nama Instansi </label>
+                                <input type="text" required="" name="tujuan" value="<?php echo $result['nama_tujuan']  ?>" class="form-control"/>
+                            </div>
+                            
+                            <div class="col-xs-12">
+                                <label>Alamat Instansi </label>
+                                <textarea class="form-control" required="" name="alamat_tujuan"><?php echo $result['alamat_tujuan']  ?></textarea>
+                            </div>
+                 
+                        </div>
+                        
+                </div>
+            </div>
         </div>
+        
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-user"></i> Asal Surat</div>
+                
+                <div class="panel-body">
+                     <div class="form-group">                    
+                        <div class="col-xs-8">
+                            <label id="label2">Nama Instansi</label>
+                            <input type="text" class="form-control" name="nama_asal" required="" value="<?php echo $result['nama_asal']  ?>" placeholder="" />
+                        </div>                        
+                    </div>
+                    
+                    <div class="form-group">                    
+                        <div class="col-xs-8">
+                            <label id="label2">Alamat Instansi</label>
+                            <textarea class="form-control" name="alamat_asal"><?php echo $result['alamat_asal']  ?></textarea>
+                        </div>                        
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <button type="submit" name="tambah_surat" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
     
 	   </form>
     </div>

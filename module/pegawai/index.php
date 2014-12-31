@@ -1,14 +1,15 @@
 <?php lock('2') ?>
 
 <div class="row">
-    <form method="post">
+    
         <fieldset>
         <legend>Data Pegawai</legend>
         
         <div class="col-lg-12">
         
         <?php if(isset($success)){?><div class="alert alert-success"><strong>Hak akses telah diperbarui</strong></div><?php } ?>
-            <table class="table table-striped">
+            <a href="./?page=pegawai/tambah"><button class="btn btn-primary"><i class="fa fa-plus"></i> Tambah</button></a><div class="clearfix"></div><br />
+            <form method="post"><table class="table table-striped">
                 <thead>
                     <th class="success">No</th>
                     <th class="success">NIP</th>
@@ -20,7 +21,7 @@
                     <?php $i=1;
                     $data=get_pegawai('b.idbagian');
                     while($result=mysql_fetch_array($data)){?>
-                    <input type="hidden" name="id[]" value="<?php echo $result['idusers'] ?>" />
+                    <input type="hidden" name="id[]" value="<?php echo $result['idpegawai'] ?>" />
                         <tr>
                             <td><?php echo $result['idpegawai'] ?></td>
                             <td><?php echo $result['nama'] ?></td>
@@ -40,9 +41,9 @@
             </table>
             
             <button id="update_hak_akses" class="btn btn-success" name="update_hak_akses">Update </button>
-        </div>
+        </div></form>
     </fieldset>
-    </form>
+    
 </div>
 
 

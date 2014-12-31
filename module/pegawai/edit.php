@@ -7,12 +7,16 @@ if(isset($_GET['id'])){
     }
     $result=mysql_fetch_array(get_one_pegawai($id)); 
 ?>
+
+<script>jQuery(function($){
+   $("#tl").mask("99-99-9999");
+});</script>
 <div class="row clearfix">
 	
 	<div class="col-md-12">
         <form method="post" enctype="multipart/form-data" role="form">
         <a href="./?page=pegawai/index" class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Kembali</a>
-        <button type="submit" name="tambah_pegawai" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
+        <button type="submit" name="edit_pegawai" class="btn btn-success"><i class="fa fa-refresh"></i> Perbarui</button>
         <div class="clearfix"></div><br />
         
             <fieldset>
@@ -31,6 +35,7 @@ if(isset($_GET['id'])){
                                 <label class="col-sm-3 control-label">NIP*</label>
                                 <div class="col-sm-5">
                                   <input type="text" autofocus="" class="form-control" name="nip" required="" placeholder="No Pegawai / Identitas Lainnya" value="<?php echo $result['idpegawai'] ?>"/>
+                                    <input type="hidden" name="old" value="<?php echo $result['idpegawai'] ?>"/>
                                 </div>
                               </div>
                               
@@ -40,7 +45,7 @@ if(isset($_GET['id'])){
                                   <input type="text" name="nama" class="form-control" required="" placeholder="Nama Lengkap" value="<?php echo $result['nama'] ?>"/>
                                 </div>
                               </div>
-                              
+                              <!--
                               <div class="form-group">
                                 <label class="col-sm-3 control-label">Bagian*</label>
                                 <div class="col-sm-5">
@@ -52,12 +57,12 @@ if(isset($_GET['id'])){
                                   </select>
                                 </div>
                               </div>
-                              
+                              -->
                               <div class="form-group">
                                 <label class="col-sm-3 control-label">Tanggal Lahir*</label>
                                 <div class="col-sm-5">
-                                  <input type="text" id="tl" name="tl" class="form-control" required="" />
-                                    <small>**) Format : tanggal/bulan/tahun</small>
+                                  <input type="text" id="tl" name="tl" class="form-control" value="<?php echo $result['tanggal_lahir'] ?>" />
+                                    <small>**) Format : tanggal-bulan-tahun</small>
                                 </div>
                               </div>
                         </div>
@@ -68,14 +73,14 @@ if(isset($_GET['id'])){
             
             <div class="col-md-4">
                     <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-th"></i> 5 Data terakhir</div>
+                    <div class="panel-heading"><i class="fa fa-th"></i> Foto</div>
             
                     <div class="panel-body">
-                        <ol>
-                            <?php $data=get_last_pegawai('created_at',5);while($result=mysql_fetch_array($data)){?>
-                                <li><?= $result['nama'] ?></li>
-                            <?php } ?>
-                        </ol>
+                        <div class="thumbnail">
+                            <img src="./img/foto/<?php echo $result['foto'] ?>" />
+                            <input type="hidden" name="old_foto" value="<?php $result['foto']; ?>" />
+                        </div>
+                        <input type="file" class="btn btn-primary" name="foto" />
                     </div>
                 </div>
             </div>
@@ -93,7 +98,7 @@ if(isset($_GET['id'])){
                     <div class="form-group">                    
                         <div class="col-xs-8">
                         <label>Alamat</label>
-                        <textarea name="alamat" class="form-control"></textarea>
+                        <textarea name="alamat" class="form-control"><?php echo $result['alamat'] ?></textarea>
                         </div>                        
                     </div>
                     
@@ -101,7 +106,7 @@ if(isset($_GET['id'])){
                     <div class="form-group">                    
                         <div class="col-xs-8">
                         <label>Kota</label>
-                        <input type="text" name="kota" class="form-control" />
+                        <input type="text" name="kota" class="form-control" value="<?php echo $result['kota'] ?>" />
                         </div>                        
                     </div>
                 </div>
@@ -110,29 +115,23 @@ if(isset($_GET['id'])){
                     <div class="form-group">                    
                         <div class="col-xs-12">
                         <label>No Telepon</label>
-                        <input type="text" name="telepon" class="form-control" />
+                        <input type="text" name="telepon" class="form-control" value="<?php echo $result['telepon'] ?>" />
                         </div>                        
                     </div>
                     
                     <div class="form-group">                    
                         <div class="col-xs-12">
                         <label>No Ponsel</label>
-                        <input type="text" name="ponsel" class="form-control" />
+                        <input type="text" name="ponsel" value="<?php echo $result['ponsel'] ?>" class="form-control" />
                         </div>                        
                     </div>
                     
-                    <div class="form-group">                    
-                        <div class="col-xs-12">
-                        <label>Foto</label>
-                        <input type="file" name="foto"/>
-                        </div>
-                                                
-                    </div>
+                    
                     
                 </div>
                 
                 <div class="clearfix"></div><hr />
-                <button type="submit" name="tambah_pegawai" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
+                <button type="submit" name="edit_pegawai" class="btn btn-success"><i class="fa fa-refresh"></i> Perbarui</button>
             </div>
         </div>
         </div>

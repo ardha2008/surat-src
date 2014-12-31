@@ -39,8 +39,8 @@
                                     <td><?php $tgl=explode('-',$result['tanggal_surat']); echo $tgl[2].'-'.$tgl[1].'-'.$tgl[0]  ?></td>
                                     <td><?= $result['idsurat'] ?></td>
                                     <td><a href="./?page=surat/detail&id=<?php echo $result['idsurat'] ?>"><?= $result['perihal'] ?></a></td>
-                                    <td><?php echo $result['asal_surat'] ?></td>
-                                    <td><?php echo $result['tujuan'] ?></td>
+                                    <td><?php echo $result['nama_asal'] ?></td>
+                                    <td><?php echo $result['nama_tujuan'] ?></td>
                                     <td>
                                     <?php if(get_login('idbagian')==1 || get_login('idbagian')==3){?>
                                         <a href="./?page=surat/edit&id=<?php echo $result['idsurat'] ?>"><button title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
@@ -92,22 +92,24 @@
                             <th>Tanggal Surat</th>
                             <th>No Surat</th>
                             <th>Perihal</th>
+                            <th>Asal</th>
                             <th>Tujuan</th>
                             <th></th>
                         </thead>
                         
                         <tbody>
-                            <?php $surat=get_surat('keluar');$i=1;while($result=mysql_fetch_array($surat)){?>
+                            <?php $surat=get_surat('keluar');$a=1;while($result=mysql_fetch_array($surat)){?>
                                 <tr>
-                                <td><?= $i ?></td>
+                                <td><?= $a ?></td>
                                 <td><?php $tgl=explode('-',$result['tanggal_surat']); echo $tgl[2].'-'.$tgl[1].'-'.$tgl[0]  ?></td>
                                 <td><?= $result['idsurat'] ?></td>
                                 <td><a href="./?page=surat/detail&id=<?php echo $result['idsurat'] ?>"><?= $result['perihal'] ?></a></td>
-                                <td><?php echo $result['asal_surat'] ?></td>
+                                <td><?php echo $result['nama_asal'] ?></td>
+                                <td><?php echo $result['nama_tujuan'] ?></td>
                                 <td>
                                 <?php if(get_login('idbagian')==1 || get_login('idbagian')==0 || get_login('idbagian')=='3'){?>
                                     <a href="./?page=surat/edit&id=<?php echo $result['idsurat'] ?>"><button title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
-                                    <a href="./?page=surat/delete&id=<?php echo $result['idsurat'] ?>"><button title="Hapus" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>
+                                    <a href="#hapus-<?php echo $a ?>" class="btn btn-danger" data-toggle="modal" ><i class="fa fa-trash"></i></a>
                                     
                                 <?php } ?>
                                     
@@ -115,7 +117,26 @@
                                 </td>
                             </tr>
                             
-                            <?php $i++; } ?>
+                            <!-- Modal -->
+                                <div class="modal fade" id="hapus-<?php echo $a ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                  <div class="modal-dialog">
+                                    <div class="modal-content">
+                                      <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                                        <h3 class="modal-title" id="myModalLabel"><i class="glyphicon glyphicon-remove"></i> Konfirmasi hapus </h3>
+                                      </div>
+                                      <div class="modal-body">
+                                        Apakah anda yakin akan menghapus <?php echo $result['perihal'] ?> ?
+                                      </div>
+                                      <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                        <a href="./?page=surat/delete&id=<?php echo $result['idsurat'] ?>"><button title="Hapus" class="btn btn-danger"><i class="fa fa-trash"></i> HAPUS</button></a>
+                                      </div>
+                                    </div>
+                                  </div>
+                                </div>
+                            
+                            <?php $a++; } ?>
                         </tbody>
                     </table>
                 </div>

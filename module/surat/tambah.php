@@ -128,23 +128,14 @@ $(document).ready(function(){
               
         </fieldset>
         
-        <div class="col-lg-12">
-            <div class="panel panel-default">
-            <div class="panel-heading"><i class="fa fa-user"></i> Informasi Lainnya</div>
         
-            <div class="panel-body">
-                <div class="col-sm-6">
-                    
-                    <div class="form-group">                    
-                        <div class="col-xs-8">
-                            <label id="label">Tujuan Surat</label>
-                            <label id="label2">Asal Surat</label>
-                            <input type="text" class="form-control" name="asal_surat" required="" placeholder="" />
-                        </div>                        
-                    </div>
-                    
-                    <div class="form-group">                    
-                        <div class="col-xs-8">
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-user"></i> Informasi Lainnya</div>
+                
+                <div class="panel-body">
+                     <div class="form-group">                    
+                        <div class="col-xs-12">
                             <label>Disposisi</label>
                             <input type="text" class="form-control" name="disposisi" placeholder="" />
                         </div>                        
@@ -152,27 +143,14 @@ $(document).ready(function(){
                     
                     
                     <div class="form-group">                    
-                        <div class="col-xs-8">
-                            <label>Kata Kunci</label>
+                        <div class="col-xs-12">
+                            <label>Catatan</label>
                             <input type="text" class="form-control" name="keyword" placeholder="" />
-                            <small>*dipisahkan dengan koma</small>
                         </div>                        
                     </div>
                     
-                    
-                    
-                </div>
-                
-                <div class="col-sm-6">
-                
                     <div class="form-group">                    
-                            <div class="col-xs-8">
-                                <label>Tujuan </label>
-                                <input type="text" name="tujuan" class="form-control"/>
-                            </div>                        
-                        </div>
-                    <div class="form-group">                    
-                        <div class="col-xs-5">
+                        <div class="col-xs-12">
                             <label>Lampiran</label>
                               <div class="input-group">
                                 <input type="file" name="lampiran" />
@@ -181,14 +159,58 @@ $(document).ready(function(){
                         </div>                        
                     </div>
                 </div>
-                
-                
-                <div class="clearfix"></div><hr />
-                <button type="submit" name="tambah_surat" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
             </div>
         </div>
+        
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-user"></i> Tujuan surat</div>
+                
+                <div class="panel-body">
+                     
+                    <div class="form-group">                    
+
+                            <div class="col-xs-12">
+                                <label>Nama Instansi </label>
+                                <input type="text" required="" name="tujuan" class="form-control"/>
+                            </div>
+                            
+                            <div class="col-xs-12">
+                                <label>Alamat Instansi </label>
+                                <textarea class="form-control" required="" name="alamat_tujuan"></textarea>
+                            </div>
+                 
+                        </div>
+                        
+                </div>
+            </div>
         </div>
-    
+        
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading"><i class="fa fa-user"></i> Asal Surat</div>
+                
+                <div class="panel-body">
+                     <div class="form-group">                    
+                        <div class="col-xs-8">
+                            <label id="label2">Nama Instansi</label>
+                            <input type="text" class="form-control" name="nama_asal" required="" placeholder="" />
+                        </div>                        
+                    </div>
+                    
+                    <div class="form-group">                    
+                        <div class="col-xs-8">
+                            <label id="label2">Alamat Instansi</label>
+                            <textarea class="form-control" name="alamat_asal"></textarea>
+                        </div>                        
+                    </div>
+                    
+
+                </div>
+            </div>
+        </div>
+        <div class="clearfix"></div>
+        <button type="submit" name="tambah_surat" class="btn btn-success"><i class="fa fa-save"></i> Simpan</button>
 	   </form>
     </div>
 </div>

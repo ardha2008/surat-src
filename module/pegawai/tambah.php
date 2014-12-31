@@ -1,6 +1,6 @@
 <script>
 jQuery(function($){
-   $("#tl").mask("99/99/9999");
+   $("#tl").mask("99-99-9999");
 });
 </script>
 
@@ -44,7 +44,9 @@ jQuery(function($){
                                   <select class="form-control" name="bagian">
                                         <option value="null">pilih</option>
                                     <?php $data=get_bagian();while($result=mysql_fetch_array($data)){?>
-                                        <option value="<?= $result['idbagian'] ?>"><?= $result['keterangan'] ?></option>
+                                        <?php if($result['idbagian'] != '3'){?>
+                                            <option value="<?php echo $result['idbagian'] ?>"><?php echo $result['keterangan'] ?></option>
+                                        <?php } ?>
                                     <?php } ?>
                                   </select>
                                 </div>
@@ -56,6 +58,11 @@ jQuery(function($){
                                   <input type="text" id="tl" name="tl" class="form-control" required="" />
                                     <small>**) Format : tanggal/bulan/tahun</small>
                                 </div>
+                              </div>
+                              
+                              <div class="form-group">
+                                <div class="col-sm-3"></div>
+                                <div class="col-sm-6"><div class="alert alert-info">Password DEFAULT : <strong>1234</strong></div></div>                                
                               </div>
                         </div>
                     </div>

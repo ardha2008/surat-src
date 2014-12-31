@@ -2,6 +2,9 @@
 
 require_once 'config.php';
 //mysqli_connect('localhost','root','','surat');
+ini_set('max_execution_time', 300);
+
+for($i=1;$i<=200;$i++){
 
 $jenis=array('SPENG','SB','UND','ST','PENG','SPERINT','SKEP');
 $wow=array_rand($jenis);
@@ -11,7 +14,7 @@ $asal_x=array_rand($asal);
 $bulan=rand(1,12);
 $tahun='2014';
 
-$idsurat=$jenis[$wow].'/'.$no_urut.'/'.$asal[$asal_x].'/'.$bulan.'/'.$tahun.'/'.uniqid();
+$idsurat=$jenis[$wow].'/'.uniqid().'/'.$no_urut.'/'.$asal[$asal_x].'/'.$bulan.'/'.$tahun.'/'.uniqid();
 
 $tipe=array('keluar','masuk');
 $tipe_x=array_rand($tipe);
@@ -36,12 +39,27 @@ $kategori=array('B','PENG','SKEP','SPENG','SPRINT','ST','UND');
 $kategori_x=array_rand($kategori);
 $kategori_b=$kategori[$kategori_x];
 
-$posting=array('1134010049','1134010050','1134010051','1134010051');
+$posting=array('1134010051','1134010052','1134010053','1134010054');
 $posting_x=array_rand($posting);
 $posting_b=$posting[$posting_x];
 
-for($i=1;$i<=50;$i++){
-    $a=mysql_query("insert into surat (idsurat,jenis_surat,tanggal_surat,idkategori,posting,perihal,public) values ('$idsurat','$srt','$tgl_surat','$kategori_b','$posting_b','$perihal_b',$public) ",$koneksi) or die(mysql_error());
+$tujuan=array('a','b','c','d','e','f','g','h');
+$tujuan_x=array_rand($tujuan);
+$tujuan_b=$tujuan[$tujuan_x];
+
+$deleted=rand(0,1);
+//echo $tujuan_b;
+
+//exit();
+
+    $a=mysql_query("
+    insert into surat 
+    (idsurat,jenis_surat,tanggal_surat,idkategori,perihal,deleted,publikasi) values 
+    ('$idsurat','$srt','$tgl_surat','$kategori_b','$perihal_b','$deleted','$public') ",$koneksi) or die(mysql_error());
+
+    $b=mysql_query("insert into posting (idpegawai,idsurat) values ('$posting_b','$idsurat')",$koneksi) or die(mysql_error());
+    $c=mysql_query("insert into asal (idsurat,nama_asal,alamat_asal) values ('$idsurat','UPN JATIM','Jalan Rungkut')",$koneksi) or die(mysql_error());
+    $d=mysql_query("insert into tujuan (idsurat,nama_tujuan,alamat_tujuan) values ('$idsurat','UPN JATIM','Jalan Rungkut')");
 }
 
 

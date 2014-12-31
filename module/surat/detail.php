@@ -24,7 +24,7 @@ if(isset($_GET['id'])){
                 
                 <div class="col-md-8">
                     <div class="panel panel-default">
-                    <div class="panel-heading"><i class="fa fa-info"></i> Informasi Wajib</div>
+                    <div class="panel-heading"><div class="panel-title"><i class="fa fa-info"></i> Informasi Wajib</div></div>
             
                     <div class="panel-body">
                         <div class="form-horizontal">
@@ -54,15 +54,15 @@ if(isset($_GET['id'])){
                               <div class="form-group">
                                 <label class="col-sm-3 control-label"></label>
                                 <div class="col-sm-5">
-                                <?php if($result['public'] == '0'){?><div class="alert alert-danger"><i class="fa fa-danger"></i> Surat ini bersifat <strong>TERTUTUP</strong></div><?php } ?>
-                                <?php if($result['public'] == '1'){?><div class="alert alert-success"><i class="fa fa-info"></i> Surat ini bersifat <strong>TERBUKA</strong></div><?php } ?>
+                                <?php if($result['publikasi'] == '0'){?><div class="alert alert-danger"><i class="fa fa-danger"></i> Surat ini bersifat <strong>TERTUTUP</strong></div><?php } ?>
+                                <?php if($result['publikasi'] == '1'){?><div class="alert alert-success"><i class="fa fa-info"></i> Surat ini bersifat <strong>TERBUKA</strong></div><?php } ?>
                                 </div>
                             </div>
                             
                             <div class="form-group">
                                 <label class="col-sm-3 control-label">Dicatat oleh </label>
                                 <div class="col-sm-5">
-                                  <p class="form-control-static"><?php echo $result['posting'] ?></p>
+                                  <p class="form-control-static"><?php echo $result['nama'] ?></p>
                                 </div>
                               </div>
                               
@@ -87,55 +87,68 @@ if(isset($_GET['id'])){
               
         </fieldset>
         
-        <div class="col-lg-12">      
-             <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="col-lg-4">
               <div class="panel panel-default">
                 <div class="panel-heading" role="tab" id="headingOne">
-                  <h4 class="panel-title">
-                    <a data-toggle="collapse" data-parent="#accordion" href="#detail" aria-expanded="true" aria-controls="collapseOne">
-                     <i class="fa fa-user"></i> Informasi Lainnya
-                    </a>
-                  </h4>
+                  <h4 class="panel-title"><i class="fa fa-info"></i> Informasi Lain</h4>
                 </div>
                 
-                <div id="detail" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                  <div class="panel-body">
-                    <div class="col-sm-6">
-                                
-                                <div class="form-group">                    
-                                    <div class="col-xs-8">
-                                        <label>Keterangan Tambahan</label>
-                                        <p class="form-control-static"><?php echo $result['tujuan'] ?></p>
-                                    </div>                        
-                                </div>
-                                
-                                <div class="form-group">                    
-                                    <div class="col-xs-8">
-                                        <label>Asal Surat</label>
-                                        <p class="form-control-static"><?php if($result['asal_surat']=='') {echo $result['asal_surat'];  }else{ echo 'Asal surat belum diatur';} ?></p>
-                                    </div>                        
-                                </div>
-                                
-                                <div class="form-group">                    
-                                    <div class="col-xs-8">
-                                        <label>Disposisi</label>
-                                        <p class="form-control-static"><?php echo $result['disposisi'] ?></p>
-                                    </div>                        
-                                </div>
-                                
-                                <div class="form-group">                    
-                                    <div class="col-xs-8">
-                                        <label>Kata Kunci</label>
-                                        <p class="form-control-static"><?php echo $result['kata_kunci'] ?></p>
-                                    </div>                        
-                                </div>
-                                
-                            </div>
-                  </div>
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="control-label">Disposisi</label>
+                        <input type="text" disabled="" class="form-control" value="<?php echo $result['disposisi'] ?>" />
+                    </div>
                 </div>
+                
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="control-label">Disposisi</label>
+                        <input type="text" disabled="" class="form-control" value="<?php echo $result['catatan'] ?>" />
+                    </div>
+                </div>
+                
+                <div class="panel-body">
+                    <div class="form-group">
+                        <label class="control-label">Tanggal Posting</label>
+                        <input type="text" disabled="" class="form-control" value="<?php echo $result['created_at'] ?>" />
+                    </div>
+                </div>
+                
               </div>
-            </div>
         </div>
+        
+        <div class="col-lg-4">      
+             
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title"><i class="fa fa-info"></i> Asal Surat</h4>
+                </div>
+                
+                <div class="panel-body">
+                    <label><?php echo $result['nama_asal'] ?></label>
+                    <address><?php echo $result['alamat_asal'] ?></address>                                
+                  </div>
+                
+              </div>
+            
+        </div>
+        
+        <div class="col-lg-4">      
+             
+              <div class="panel panel-default">
+                <div class="panel-heading" role="tab" id="headingOne">
+                  <h4 class="panel-title"><i class="fa fa-info"></i> Tujuan Surat</h4>
+                </div>
+                
+                <div class="panel-body">
+                    <label><?php echo $result['nama_tujuan'] ?></label>
+                    <address><?php echo $result['alamat_tujuan'] ?></address>                                
+                  </div>
+                
+              </div>
+            
+        </div>
+        
     
 	   </form>
     </div>

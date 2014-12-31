@@ -1,7 +1,7 @@
 <?php 
 
 function get_pegawai($order_by='created_at'){
-    $query=mysql_query("select * from pegawai a, users b, bagian c where b.idusers=a.idpegawai and b.idbagian=c.idbagian order by $order_by DESC");
+    $query=mysql_query("select * from pegawai a, bagian b where a.idbagian=b.idbagian order by $order_by DESC");
     return $query;
 }
 
@@ -21,13 +21,13 @@ function get_last_pegawai($order_by='created_at',$limit=5){
 }
 
 function get_bagian($order_by='idbagian'){
-    $query=mysql_query("select * from bagian order by $order_by ASC");
+    $query=mysql_query("select * from bagian order by $order_by DESC");
     return $query;
 }
 
 function get_login($tampil){
     $aktif=$_SESSION['idusers'];
-    $query=mysql_query("select * from users a, pegawai b, bagian c where a.idusers=b.idpegawai and a.idusers='$aktif' and a.idbagian=c.idbagian");
+    $query=mysql_query("select * from pegawai a, bagian b where a.idbagian=b.idbagian and a.idpegawai='$aktif'");
     $data=mysql_fetch_array($query);
     return $data[$tampil];
 }
@@ -44,13 +44,13 @@ function get_count_posting(){
 
 function get_surat($get='all'){
     switch ($get){ 
-	case 'all' : $query=mysql_query("select * from surat order by tanggal_surat DESC");
+	case 'all' : $query=mysql_query("select * from surat a, tujuan b, asal c where a.idsurat=b.idsurat and c.idsurat=a.idsurat order by tanggal_surat DESC");
 	break;
 
-	case 'masuk' : $query=mysql_query("select * from surat where jenis_surat='masuk' and `delete`='0' order by tanggal_surat DESC");
+	case 'masuk' : $query=mysql_query("select * from surat a, tujuan b, asal c where a.idsurat=b.idsurat and c.idsurat=a.idsurat and deleted='0' and jenis_surat='masuk' order by tanggal_surat DESC");
 	break;
 
-	case 'keluar' : $query=mysql_query("select * from surat where jenis_surat='keluar' and `delete`='0' order by tanggal_surat DESC");
+	case 'keluar' : $query=mysql_query("select * from surat a, tujuan b, asal c where a.idsurat=b.idsurat and c.idsurat=a.idsurat and deleted='0' and jenis_surat='keluar' order by tanggal_surat DESC");
 	break;
 
 	default :
@@ -67,7 +67,7 @@ function get_surat_row($jenis='masuk',$limit='5'){
 function get_one($id=null){
     if($id==null) die('Periksa parameter fungsi');
     
-    $query=mysql_query("select * from surat where idsurat='$id'");
+    $query=mysql_query("select * from surat a, tujuan b,posting c, pegawai d, asal e where a.idsurat='$id' and e.idsurat=a.idsurat and a.idsurat=b.idsurat and a.idsurat=c.idsurat and c.idpegawai=d.idpegawai") or die(mysql_error());
     return $query;
 }
 
@@ -77,17 +77,19 @@ function get_last_surat($order_by='created_at',$limit=5){
 }
 
 function get_last_login(){
-    $query=mysql_query("select * from `logs` a, users b ,pegawai c,bagian d where a.idusers=b.idusers and b.idusers=c.idpegawai and b.idbagian=d.idbagian order by time DESC limit 5");
+    $query=mysql_query("select * from `logs` a, pegawai b where a.idusers=b.idpegawai order by waktu DESC limit 5");
     return $query;
 }
 
 function get_one_pegawai($id){
-    $query=mysql_query("select * from pegawai a, users b where b.idusers=a.idpegawai and a.idpegawai='$id'");
+    $query=mysql_query("select * from pegawai where idpegawai='$id'");
     return $query;
 }
 
 function riwayat($posting){
-    $query=mysql_query("select * from surat where posting='$posting' order by created_at DESC");
+    $query=mysql_query("select * from posting a, pegawai b, surat c where a.idpegawai='$posting' and a.idpegawai=b.idpegawai and a.idsurat=c.idsurat and c.deleted='0' order by c.created_at DESC");
+   // echo "select * from posting a, pegawai b, surat c where a.idpegawai='$posting' and a.idpegawai=b.idpegawai and a.idsurat=c.idsurat and c.deleted='0' order by c.created_at DESC";
+   // exit();
     return $query;
 }
 
@@ -112,20 +114,30 @@ function cari_laporan($dari,$sampai,$berdasar='surat'){
     return $query;   
 }
 
+function laporan_hari($hari){
+    $query=mysql_query("select * from surat where created_at like '%$hari%' order by created_at DESC") or die(mysql_error());
+    return $query;
+}
+
+function count_hari($berdasar='jenis_surat',$hari){
+    $query=mysql_query("select $berdasar, count(*) as jumlah from surat where deleted='0' group by $berdasar order by created_at DESC");
+    return $query;
+}
+
 //==================================SAMPAH ======================================================================
 
 function get_sampah($filter='semua'){
     
     if($filter=='semua'){
-        $query=mysql_query("select * from surat where `delete`='1' order by jenis_surat DESC");    
+        $query=mysql_query("select * from surat where `deleted`='1' order by jenis_surat DESC");    
     }
     
     if($filter=='masuk'){
-        $query=mysql_query("select * from surat where jenis_surat='masuk' and `delete`='1' order by jenis_surat DESC");    
+        $query=mysql_query("select * from surat where jenis_surat='masuk' and `deleted`='1' order by jenis_surat DESC");    
     }
     
     if($filter=='keluar'){
-        $query=mysql_query("select * from surat where jenis_surat='keluar' and `delete`='1' order by jenis_surat DESC");    
+        $query=mysql_query("select * from surat where jenis_surat='keluar' and `deleted`='1' order by jenis_surat DESC");    
     }
     
     return $query;
@@ -136,15 +148,15 @@ function count_sampah($filter='all'){
     switch($filter){
         
         case 'masuk':
-        $query=mysql_query("select count(*) as jumlah from surat where jenis_surat='masuk' and `delete`='1' ");
+        $query=mysql_query("select count(*) as jumlah from surat where jenis_surat='masuk' and `deleted`='1' ");
         break;
         
         case 'keluar':
-        $query=mysql_query("select count(*) as jumlah from surat where jenis_surat='keluar' and `delete`='1' ");
+        $query=mysql_query("select count(*) as jumlah from surat where jenis_surat='keluar' and `deleted`='1' ");
         break;
         
         default:
-        $query=mysql_query("select count(*) as jumlah from surat where `delete`='1' ");
+        $query=mysql_query("select count(*) as jumlah from surat where `deleted`='1' ");
         break;
     }
     
@@ -160,5 +172,11 @@ function lock($i){
         require './module/security/lock.php';
         die();
     }
+}
+
+function capture($aksi){
+    $id=get_login('idpegawai');
+    $query=mysql_query("insert into `logs` (idusers,aksi) values ('$id','$aksi')");
+    return true;
 }
 ?>

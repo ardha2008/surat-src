@@ -11,21 +11,22 @@
                 <div class="panel-body">
                     <table class="table table-stripped table-hover table-responsive">
                         <thead>
-                            <th>No</th>
+                            <th>#</th>
                             <th>Tanggal</th>
                             <th>No Surat</th>
                             <th>Perihal</th>
-                            
+                            <th>Posting</th>
                             <th></th>
                         </thead>
                         
                         <tbody>
-                            <?php $surat=riwayat(get_login('idusers'));$i=1;while($result=mysql_fetch_array($surat)){?>
+                            <?php $surat=riwayat(get_login('idpegawai'));$i=1;while($result=mysql_fetch_array($surat)){?>
                                 <tr>
                                 <td><?= $i ?></td>
                                 <td><?= $result['tanggal_surat'] ?></td>
                                 <td><?= $result['idsurat'] ?></td>
                                 <td><a href="./?page=surat/detail&id=<?php echo $result['idsurat'] ?>"><?= $result['perihal'] ?></a></td>
+                                <td><?= $result['created_at'] ?></td>
                                 <td>
                                     <a href="./?page=surat/edit&id=<?php echo $result['idsurat'] ?>"><button title="Edit" class="btn btn-primary"><i class="fa fa-pencil"></i></button></a>
                                     <a href="./?page=surat/delete&id=<?php echo $result['idsurat'] ?>"><button title="Hapus" class="btn btn-danger"><i class="fa fa-trash"></i></button></a>

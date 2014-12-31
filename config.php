@@ -21,7 +21,7 @@ define('SMS_SERVER','192.168.43.1:9090'); //Berupa IP SMS Gateway server : xxx.x
 $host = 'localhost'; //Host koneksi
 $user = 'root'; //Username database
 $pass = ''; //Default root = kosong
-$db = 'surat'; //Nama database
+$db = 'surat-rb'; //Nama database
 
 $koneksi = mysql_connect($host, $user, $pass) or die(mysql_error()) or die('Check connection');
 mysql_select_db($db, $koneksi) or die('select database');

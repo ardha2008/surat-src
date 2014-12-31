@@ -63,6 +63,7 @@
 			</p>
             </div>
             <?php $ya='<i class="glyphicon glyphicon-ok"></i>';$tidak='<i class="glyphicon glyphicon-minus"></i>' ?>
+            <!--
             <table class="table table-striped">
                 <thead>
                     <th class="danger">Bagian <br />/ Hak Akses</th>
@@ -227,7 +228,7 @@
                 
                 </tbody>
             </table>
- 
+ -->
             
 			<div class="row clearfix">
             

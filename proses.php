@@ -61,17 +61,17 @@ if(isset($_POST['login'])){
     $id=$_POST['id'];
     $password=encrypt($_POST['password']);
     
-    $query=mysql_query("select * from users where idusers='$id' and password='$password'") ;
+    $query=mysql_query("select * from pegawai where idpegawai='$id' and password='$password'") ;
     
     if(mysql_num_rows($query)>0){
         $result=mysql_fetch_array($query);
         
-        $_SESSION['idusers']=$result['idusers'];
+        $_SESSION['idusers']=$result['idpegawai'];
         $_SESSION['login']=true;
         
         $catch=$_SESSION['idusers'];
         
-        mysql_query("insert into `logs` (idusers) values ('$catch')");
+        mysql_query("insert into `logs` (idusers,aksi) values ('$catch','login')");
         
         header('Location:./?page=dashboard');
     }else{
@@ -115,14 +115,67 @@ if(isset($_POST['tambah_pegawai'])){
         $foto='nophoto.jpg';
     }
     
-    $query=mysql_query("insert into pegawai (idpegawai,nama,alamat,kota,tanggal_lahir,telepon,ponsel,foto) values ('$nip','$nama','$alamat','$kota','$tl','$telepon','$ponsel','$foto')");
-    $query2=mysql_query("insert into users values('$nip','$password','$bagian')") ;
+    $query=mysql_query("insert into pegawai (idpegawai,idbagian,nama,alamat,kota,tanggal_lahir,telepon,ponsel,foto,password) values ('$nip','$bagian','$nama','$alamat','$kota','$tl','$telepon','$ponsel','$foto','$password')") or die(mysql_error());
+    
+    capture('menambahkan pegawai');
     
     if($query){
         $success=1;
     }else{
         mysql_error();
     }
+}
+
+//=================================================================
+//=========================PROSES EDIT PEGAWAI=====================
+//=================================================================
+
+if(isset($_POST['edit_pegawai'])){
+    $old=$_POST['old'];
+    
+    $nip=$_POST['nip'];
+    $nama=$_POST['nama'];
+    $tl=$_POST['tl'];
+    $alamat=$_POST['alamat'];
+    $kota=$_POST['kota'];
+    $telepon=$_POST['telepon'];
+    $ponsel=$_POST['ponsel'];
+    
+    if(isset($_FILES['foto']['tmp_name'])){
+        $new_name=random().'.jpeg';
+
+        $target_path = './img/foto/';
+        $target_path = $target_path . basename($new_name); 
+        $foto=$new_name;
+        
+        if(move_uploaded_file($_FILES['foto']['tmp_name'], $target_path)) {
+
+        } else{
+            $failed=1;
+            $foto='nophoto.jpg';
+        }
+    }else{
+        $foto=$_POST['old_foto'];
+    }
+    
+    
+    $update="
+    update pegawai set 
+    idpegawai='$nip',
+    nama='$nama',
+    tanggal_lahir='$tl',
+    alamat='$alamat',
+    kota='$kota',
+    telepon='$telepon',
+    ponsel='$ponsel',
+    foto='$foto'
+    
+    where idpegawai='$old'
+    ";
+    
+    $query=mysql_query($update) or die(mysql_error());
+    capture("mengubah data pegawai $idpegawai");
+    
 }
 
 //=================================================================
@@ -149,6 +202,8 @@ if(isset($_POST['update_personal'])){
         $success=1;
     }
 }
+
+
 
 //=================================================================
 //=========================PROSES TAMBAH BAGIAN====================
@@ -187,10 +242,19 @@ if(isset($_POST['tambah_surat'])){
     $publikasi=$_POST['publikasi'];
     
     $disposisi=$_POST['disposisi'];
-    $catatan=$_POST['tujuan'];
-    $asal_surat=$_POST['asal_surat'];
+    
+    $tujuan=$_POST['tujuan'];
+    $idtujuan=strtoupper(str_replace(' ','-',$_POST['tujuan']));
+    
+    $nama_tujuan=$_POST['tujuan'];
+    $alamat_tujuan=$_POST['alamat_tujuan'];
+    
+    $nama_asal=$_POST['nama_asal'];
+    $alamat_asal=$_POST['alamat_asal'];
+    
+    
     $keyword=$_POST['keyword'];
-    $posting=get_login('idusers');
+    $posting=get_login('idpegawai');
      
    /**
     * JIKA LAMPIRAN MENGGUNAKAN UPLOAD 
@@ -215,9 +279,12 @@ if(isset($_POST['tambah_surat'])){
         $foto='no_lampiran.jpeg';
     }
     
+    $query=mysql_query("INSERT INTO surat (idsurat, jenis_surat, tanggal_surat, idkategori ,perihal, disposisi,catatan,publikasi,lampiran) VALUES ('$id','$jenis_surat', '$tanggal_surat','$kategori','$perihal','$disposisi','$keyword','$publikasi','$foto')") or die(mysql_error());
+    $query2=mysql_query("insert into tujuan (idsurat,nama_tujuan,alamat_tujuan) values ('$id','$nama_tujuan','$alamat_tujuan')") or die(mysql_error());
+    $query3=mysql_query("insert into asal (idsurat,nama_asal,alamat_asal) values ('$id','$nama_asal','$alamat_asal') ") or die(mysql_error());
+    $query4=mysql_query("insert into posting values ('$posting','$id') ") or die(mysql_error());
     
-    
-    $query=mysql_query("INSERT INTO surat (idsurat, jenis_surat, tanggal_surat, idkategori ,perihal, tujuan, asal_surat,disposisi,kata_kunci,posting,public,lampiran) VALUES ('$id', '$jenis_surat', '$tanggal_surat','$kategori','$perihal', '$catatan', '$asal_surat','$disposisi','$keyword','$posting','$publikasi','$foto')") or die(mysql_error());
+    capture("Input surat $id");
     
     if($query){
     
@@ -254,10 +321,18 @@ if(isset($_POST['update_surat'])){
     
     $disposisi=$_POST['disposisi'];
     $catatan=$_POST['tujuan'];
-    $asal_surat=$_POST['asal_surat'];
-    $keyword=$_POST['keyword'];
-    $posting=get_login('idusers');
+   // $asal_surat=$_POST['asal_surat'];
+  //  $keyword=$_POST['keyword'];
+    //$posting=get_login('idpegawai');
     
+    $nama_tujuan=$_POST['tujuan'];
+    $alamat_tujuan=$_POST['alamat_tujuan'];
+    
+    $nama_asal=$_POST['nama_asal'];
+    $alamat_asal=$_POST['alamat_asal'];
+    
+    //$nama_tujuan=$_POST['tujuan'];
+   // $alamat_tujuan=$_POST['tujuan_surat'];
    /**
     * JIKA LAMPIRAN MENGGUNAKAN UPLOAD 
     * HILANGKAN KOMENTAR DIBAWAH INI
@@ -293,14 +368,22 @@ if(isset($_POST['update_surat'])){
     idkategori='$kategori',
     perihal='$perihal',
     disposisi='$disposisi',
-    public='$publikasi',
-    tujuan='$catatan',
-    asal_surat='$asal_surat',
-    kata_kunci='$keyword',
-    posting='$posting',
+    publikasi='$publikasi',
+    catatan='$keyword',
     lampiran='$foto'
     WHERE idsurat='$old'";
     $query=mysql_query($query) or die(mysql_error());
+    
+    $query2=" UPDATE tujuan SET
+    nama_tujuan='$nama_tujuan',
+    alamat_tujuan='$alamat_tujuan'
+    where idsurat='$old'
+    ";
+    $query2=mysql_query($query2) or die(mysql_error());
+    $query3=mysql_query("update asal set idsurat='$id',nama_asal='$nama_asal',alamat_asal='$alamat_asal' where idsurat='$old'  ") or die(mysql_error());
+    $query4=mysql_query("update posting set idsurat='$id' where idsurat='$old' ") or die(mysql_error());
+    
+    capture("Mengubah surat $id");
     
     if($query){
         $_SESSION['success']=true;
@@ -433,13 +516,15 @@ if(isset($_POST['import_file'])){
 
 if(isset($_POST['update_hak_akses'])){
     $jumlah=count($_POST['hak_akses']);
-    
+    //print_r($_POST['hak_akses']);
+    //exit();
     for($i=0;$i<$jumlah;$i++){
         $id=$_POST['id'][$i];
         $bagian=$_POST['hak_akses'][$i];
-        $update=mysql_query("update users set idbagian='$bagian' where idusers='$id' ");
+        
+        $update=mysql_query("update pegawai set idbagian='$bagian' where idpegawai='$id' ");
     }
-    
+   
     $success=1;
 }
 
@@ -484,7 +569,7 @@ if(isset($_POST['cetak_laporan'])){
 
 if(isset($_GET['page']) && $_GET['page']=='sampah/restore' && isset($_GET['id'])){
     $id=$_GET['id'];
-    $update=mysql_query("update surat set `delete`='0' where idsurat='$id' ");
+    $update=mysql_query("update surat set `deleted`='0' where idsurat='$id' ");
     $_SESSION['message']=true;
     header('Location:./?page=sampah/index');
 }
@@ -496,7 +581,7 @@ if(isset($_POST['reset-password'])){
     $id=$_POST['id'];
     $password=encrypt($_POST['password']);
     
-    $query=mysql_query("update users set password='$password' where idusers='$id'") or die(mysql_error());
+    $query=mysql_query("update pegawai set password='$password' where idpegawai='$id'") or die(mysql_error());
     if($query){
         $success=true;
         $_POST['id-reset']=$id;
