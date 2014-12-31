@@ -38,7 +38,7 @@ function get_kategori($order_by='idkategori'){
 }
 
 function get_count_posting(){
-    $query=mysql_query("select nama,count(*) as jumlah from surat a, pegawai b where a.posting=b.idpegawai group by nama");
+    $query=mysql_query("select nama,count(*) as jumlah from surat a, pegawai b, posting c where c.idpegawai=b.idpegawai group by nama") or die(mysql_error());
     return $query;
 }
 
@@ -121,6 +121,18 @@ function laporan_hari($hari){
 
 function count_hari($berdasar='jenis_surat',$hari){
     $query=mysql_query("select $berdasar, count(*) as jumlah from surat where deleted='0' group by $berdasar order by created_at DESC");
+    return $query;
+}
+
+function laporan_bulan($bulan){
+    $tahun=date('Y');
+    $query=mysql_query("select * from surat where tanggal_surat between '$tahun-$bulan-01' and '$tahun-$bulan-31' and deleted='0' ") or die(mysql_error());
+    return $query;
+}
+
+function count_bulan($bulan){
+    $tahun=date('Y');
+    $query=mysql_query("select jenis_surat,count(*) as jumlah from surat where tanggal_surat between '$tahun-$bulan-01' and '$tahun-$bulan-31' and deleted='0' group by jenis_surat  ") or die(mysql_error());
     return $query;
 }
 

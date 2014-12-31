@@ -40,7 +40,7 @@ require_once 'config.php';
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="js/scripts.js"></script>
 
-    <?php if(isset($_GET['page']) && $_GET['page']=='laporan/index'){?>
+    <?php if(isset($_GET['page']) && $_GET['page']=='laporan/surat/statistik'){?>
      <script type="text/javascript" src="./fusioncharts/fusioncharts.charts.js"></script>           
      <script type="text/javascript" src="./fusioncharts/fusioncharts.js"></script>
      <script type="text/javascript" src="./fusioncharts/fusioncharts.powercharts.js"></script>
