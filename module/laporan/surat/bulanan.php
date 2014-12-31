@@ -1,9 +1,16 @@
-<?php $bulan=date('m');?>
+<?php 
+$bulan=date('m');
+    
+    function bulan($i){
+        $data=array(1=>'Januari','Februari','Maret','April','Mei','Juni','Juli','Agustus','September','Oktober','November','Desember');
+        return $data[$i];
+    }
+?>
 
 <div class="row">
     <div class="col-md-12">
         <fieldset>
-            <legend>Laporan harian per <?php echo date('d-m-Y') ?></legend>
+            <legend>Laporan bulanan per <?php echo bulan(date('m')).' '.date('Y') ?></legend>
             
             <div class="col-md-6"> 
                 <div class="panel panel-primary">
