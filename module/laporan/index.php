@@ -38,12 +38,14 @@
 				</div>
                 
                 <div class="col-md-3">
-					<div class="thumbnail">
-						<img alt="300x200" src="./img/Preview-2-icon.png" />
-						<div class="caption tengah">
-							<h3>Cari</h3>
-						</div>
-					</div>
+					<a href="./?page=laporan/surat/cari">
+                        <div class="thumbnail">
+    						<img alt="300x200" src="./img/Preview-2-icon.png" />
+    						<div class="caption tengah">
+    							<h3>Cari</h3>
+    						</div>
+    					</div>
+                    </a>
 				</div>
 				
 			

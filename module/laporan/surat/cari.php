@@ -6,7 +6,9 @@ $bulan_x=date('m');
 $tahun=date('Y');
 ?>
 
-<div class="col-md-4">
+<div class="row">
+    <div class="col-md-12">
+        <div class="col-md-4">
         <div class="panel panel-primary">
         
         <div class="panel-heading"><i class="fa fa-book"></i> CETAK LAPORAN</div>
@@ -100,3 +102,36 @@ $tahun=date('Y');
         
         </div>
     </div>
+    
+    <?php if(isset($dari) && isset($sampai)){?>
+    <div class="col-md-8">
+        <div class="panel panel-primary">
+            <div class="panel-heading"><div class="fa fa-book"></div> Laporan Surat</div>
+            
+            <div class="panel-body">
+                <table class="table table-striped">
+                    <thead>
+                        <th>#</th>
+                        <th>Tanggal Surat</th>
+                        <th>Nomor</th>
+                        <th>Perihal</th>
+                    </thead>
+                    
+                    <tbody>
+                        <?php $i=1;$data=cari_laporan($dari,$sampai,'tanggal_surat');while($result=mysql_fetch_array($data)){?>
+                            <tr>
+                                <td><?php echo $i ?></td>
+                                <td><?php echo $result['tanggal_surat'] ?></td>
+                                <td><?php echo $result['idsurat'] ?></td>
+                                <td><?php echo $result['perihal'] ?></td>
+                            </tr>
+                        <?php $i++; } ?>
+                    </tbody>
+                </table>
+            </div>
+            
+        </div>
+    </div>
+    <?php } ?>
+    </div>
+</div>
