@@ -12,16 +12,16 @@ $bulan=date('m');
         <fieldset>
             <legend>Laporan bulanan per <?php echo bulan(date('n')).' '.date('Y') ?></legend>
             
-            <div class="col-md-6">
-            <a href="./?page=laporan/index"><button class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Kembali</button></a>
-                <div class="clearfix"></div><br /> 
+            <div class="col-md-6"> 
+                <a href="./?page=laporan/index"><button class="btn btn-primary"><i class="glyphicon glyphicon-arrow-left"></i> Kembali</button></a>
+                <div class="clearfix"></div><br />
                 <div class="panel panel-primary">
-                    <div class="panel-heading">Jumlah</div>
+                    <div class="panel-heading">Jumlah Post</div>
                     
                     <ul class="list-group">
-                      <li class="list-group-item"><span class="badge"><?php echo count_sampah('all') ?></span>Total</li>  
-                      <?php $data=count_bulan($bulan);while($result=mysql_fetch_array($data)){?>
-                        <li class="list-group-item"><span class="badge"><?php echo $result['jumlah'] ?></span><?php echo $result['jenis_surat'] ?></li>
+                        
+                      <?php $data=pegawai_bulanan($bulan);while($result=mysql_fetch_array($data)){?>
+                        <li class="list-group-item"><span class="badge"><?php echo $result['jumlah'] ?></span><?php echo $result['nama'] ?></li>
                       <?php } ?>                      
                     </ul>
                 </div>
@@ -29,26 +29,26 @@ $bulan=date('m');
             
             <div class="col-md-12">
                 <div class="panel panel-primary">
-                        <div class="panel-heading"><i class="fa fa-book"></i> Laporan</div>
+                        <div class="panel-heading"><i class="fa fa-book"></i> Rekam Aktifitas</div>
                         
                         <div class="panel-body">
                            <table class="table table-striped">
                                 <thead>
                                     <th>#</th>
-                                    <th>Tanggal </th>
-                                    <th>No </th>
-                                    <th>Perihal</th>
+                                    <th>Waktu </th>
+                                    <th>Nama </th>
+                                    <th>Aktifitas</th>
                                 </thead>
                                 
                                 <tbody>
-                                <?php $i=1;$data=laporan_bulan($bulan);while($result=mysql_fetch_array($data)){?>
+                                <?php $i=1;$data=pegawai_logs_bulanan($bulan);while($result=mysql_fetch_array($data)){?>
                                     <tr>
                                         <td><?php echo $i ?></td>
-                                        <td><?php echo $result['tanggal_surat'] ?></td>
-                                        <td><?php echo $result['idsurat'] ?></td>
-                                        <td><?php echo $result['perihal'] ?></td>
+                                        <td><?php echo $result['waktu'] ?></td>
+                                        <td><?php echo $result['nama'] ?></td>
+                                        <td><?php echo strtoupper($result['aksi']) ?></td>
                                     </tr>
-                                <?php } ?>
+                                <?php $i++; } ?>
                                 </tbody>
                            </table> 
                         </div>

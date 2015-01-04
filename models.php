@@ -11,7 +11,7 @@ function get_surat_by($by,$kondisi,$limit=null){
 }
 
 function get_surat_count(){
-    $query=mysql_query("select b.keterangan_kategori as kategori ,count(*) as jumlah from surat a , kategori b where a.idkategori=b.idkategori group by a.idkategori");
+    $query=mysql_query("SELECT b.keterangan_kategori as kategori,count(*) as jumlah FROM surat a, kategori b where a.idkategori=b.idkategori  group by a.idkategori");
     return $query;
 }
 
@@ -136,6 +136,33 @@ function count_bulan($bulan){
     return $query;
 }
 
+function pegawai_harian($hari){
+    $query=mysql_query("SELECT nama,count(*) as jumlah FROM posting a,surat b,pegawai c where a.idsurat=b.idsurat and a.idpegawai=c.idpegawai and b.deleted=0 and b.created_at LIKE '%$hari%' group by a.idpegawai order by jumlah DESC") or die(mysql_error());
+    return $query;    
+}
+
+function pegawai_logs($hari){
+    
+    $query=mysql_query("select * from logs a,pegawai b where a.idusers=b.idpegawai and waktu LIKE '%$hari%' order by created_at DESC") or die(mysql_error());
+    return $query;    
+}
+
+function pegawai_bulanan($bulan){
+    $tahun=date('Y');
+    $query=mysql_query("SELECT nama,count(*) as jumlah FROM posting a,surat b,pegawai c where a.idsurat=b.idsurat and a.idpegawai=c.idpegawai and b.deleted=0 and tanggal_surat between '$tahun-$bulan-01' and '$tahun-$bulan-31' group by a.idpegawai order by jumlah DESC") or die(mysql_error());
+    return $query;    
+}
+
+function pegawai_logs_bulanan($bulan){
+    $tahun=date('Y');
+    $query=mysql_query("select * from logs a,pegawai b where a.idusers=b.idpegawai and waktu between '$tahun-$bulan-01' and '$tahun-$bulan-31' order by waktu DESC") or die(mysql_error());
+    return $query;    
+}
+
+function pegawai_seluruh(){
+    $query=mysql_query("SELECT nama,count(*) as jumlah FROM posting a,surat b,pegawai c where a.idsurat=b.idsurat and a.idpegawai=c.idpegawai and b.deleted=0 group by a.idpegawai") or die(mysql_error());
+    return $query;
+}
 //==================================SAMPAH ======================================================================
 
 function get_sampah($filter='semua'){

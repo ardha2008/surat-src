@@ -39,7 +39,7 @@ $kategori=array('B','PENG','SKEP','SPENG','SPRINT','ST','UND');
 $kategori_x=array_rand($kategori);
 $kategori_b=$kategori[$kategori_x];
 
-$posting=array('1134010051','1134010052','1134010053','1134010054');
+$posting=array('1134010051','1134010052','1134010060');
 $posting_x=array_rand($posting);
 $posting_b=$posting[$posting_x];
 

@@ -101,7 +101,8 @@ FusionCharts.ready(function () {
                 ]
             }, {
                 "seriesname": "Surat Keluar",
-                "data": [{
+                "data": [
+                {
                     "value": "<?php echo laporan('01','keluar') ?>"
                 }, {
                     "value": "<?php echo laporan('02','keluar') ?>"
@@ -136,6 +137,53 @@ FusionCharts.ready(function () {
 
 </script>
 
+<?php $data=get_surat_count();//$data1=get_surat_count()?>
+
+<script type="text/javascript">
+
+FusionCharts.ready(function () {
+    var revenueChart = new FusionCharts({
+        "type": "mscolumn3d",
+        "renderAt": "report2",
+        "width": "100%",
+//        "height": "300",
+        "dataFormat": "json",
+        "dataSource":  {
+            "chart": {
+                "caption": "Laporan Surat Bulanan ",
+                "subCaption": "Tahun 2014",
+                "xAxisName": "Bulan",
+                "yAxisName": "Jumlah",
+                "numberPrefix": "",
+                "exportEnabled": "1",
+                "theme": "fint"
+            },
+
+            "categories": [{
+                "category": [
+                <?php while($result=mysql_fetch_array($data)){?>
+                    {"label": "<?php echo $result['kategori'] ?>"}, 
+                <?php } ?>                    
+                ]
+            }],
+            "dataset": [{
+                "data": [
+                <?php while($report=mysql_fetch_array($data)){?>
+                    {
+                        "value": "<?php echo $report('jumlah') ?>"
+                    },
+                <?php } ?>
+                ]
+            }],
+        }
+    });
+
+    revenueChart.render();
+
+});
+
+</script>
+
 <?php 
 
 $bulan=array(1=>'Jan','Feb','Mar','Apr','Mei','Jun','Jul','Agu','Sep','Okt','Nov','Des') ;
@@ -161,6 +209,16 @@ $tahun=date('Y');
             
             <div class="panel-body">
                 <div id="chartContainer"></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-7">
+        <div class="panel panel-default">
+            <div class="panel-heading">Kategori</div>
+            
+            <div class="panel-body">
+                <div id="report2"></div>
             </div>
         </div>
     </div>

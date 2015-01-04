@@ -94,8 +94,9 @@
     </div>
     
         </div>
+        
     
-        <div class="col-md-4">
+        <!--<div class="col-md-4">
             <div class="panel panel-danger">
                 <div class="panel-heading">
                     <div class="panel-title"><i class="fa fa-th"></i> Login terakhir</div>
@@ -108,7 +109,7 @@
                     </ul>
             
             </div>
-        </div>
+        </div>-->
     
     </div>
 
@@ -116,7 +117,7 @@
 
 
     
-    <div class="clearfix"></div>
+    
 <!--    
     <fieldset>
         <legend>Pengumuman</legend>

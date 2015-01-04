@@ -161,8 +161,8 @@ if(isset($_GET['as'])){
                     $hasil=mysql_fetch_array(mysql_query("select count(*) as jumlah from surat where jenis_surat='masuk' and tanggal_surat between '$dari_x' and '$sampai_x' and `delete`='0'"));
                     
                 }else{
-                    $query=mysql_query("select * from surat a,kategori b where a.idkategori=b.idkategori and `delete`=0 and a.jenis_surat='masuk' order by tanggal_surat DESC, jenis_surat ASC");    
-                    $hasil=mysql_fetch_array(mysql_query("select count(*) as jumlah from surat where jenis_surat='masuk' and `delete`=0"));
+                    $query=mysql_query("select * from surat a,kategori b,asal c, tujuan d where a.idkategori=b.idkategori and a.idsurat=c.idsurat and a.idsurat=d.idsurat and `deleted`=0 and a.jenis_surat='masuk' order by tanggal_surat DESC");    
+                    $hasil=mysql_fetch_array(mysql_query("select count(*) as jumlah from surat where jenis_surat='masuk' and `deleted`=0"));
                 }
         
         
@@ -214,8 +214,8 @@ if(isset($_GET['as'])){
                     $pdf->Cell($kolom[4],10,date('d-m-Y',strtotime($result['tanggal_surat'])),'TBR');
                     $pdf->Cell($kolom[1],10,$result['idsurat'],'TB');
                     $pdf->Cell($kolom[2],10,$result['perihal'],'TB');
-                    $pdf->Cell($kolom[3],10,$result['asal_surat'],'TB');
-                    $pdf->Cell($kolom[6],10,$result['tujuan'],'TB');
+                    $pdf->Cell($kolom[3],10,$result['nama_asal'],'TB');
+                    $pdf->Cell($kolom[6],10,$result['nama_tujuan'],'TB');
                     $pdf->Cell($kolom[5],10,$result['keterangan_kategori'],'TBR');
                     $pdf->Ln();
                     $j++;       
@@ -242,8 +242,8 @@ if(isset($_GET['as'])){
             $dari=date('d-m-Y',strtotime($dari));
             $sampai=date('d-m-Y',strtotime($sampai));
         }else{
-            $query=mysql_query("select * from surat a,kategori b where a.idkategori=b.idkategori and `delete`=0 and a.jenis_surat='keluar' order by tanggal_surat DESC, jenis_surat ASC");    
-            $hasil=mysql_fetch_array(mysql_query("select jenis_surat, count(*) as jumlah from surat where jenis_surat='keluar' and `delete`=0"));
+            $query=mysql_query("select * from surat a,kategori b,asal c, tujuan d where a.idkategori=b.idkategori and a.idsurat=c.idsurat and a.idsurat=d.idsurat and `deleted`=0 and a.jenis_surat='keluar' order by tanggal_surat DESC");    
+            $hasil=mysql_fetch_array(mysql_query("select jenis_surat, count(*) as jumlah from surat where jenis_surat='keluar' and `deleted`=0"));
         }
         
             $pdf->SetFont('Times','bu',12);
@@ -278,8 +278,8 @@ if(isset($_GET['as'])){
                     $pdf->Cell($kolom[4],10,date('d-m-Y',strtotime($result['tanggal_surat'])),'TBR');
                     $pdf->Cell($kolom[1],10,$result['idsurat'],'TB');
                     $pdf->Cell($kolom[2],10,$result['perihal'],'TB');
-                    $pdf->Cell($kolom[3],10,$result['asal_surat'],'TB');
-                    $pdf->Cell($kolom[6],10,$result['tujuan'],'TB');
+                    $pdf->Cell($kolom[3],10,$result['nama_asal'],'TB');
+                    $pdf->Cell($kolom[6],10,$result['nama_tujuan'],'TB');
                     $pdf->Cell($kolom[5],10,$result['keterangan_kategori'],'TBR');
                     $pdf->Ln();
                     $j++;       
@@ -299,7 +299,9 @@ if(isset($_GET['as'])){
             $dari=date('d-m-Y',strtotime($dari));
             $sampai=date('d-m-Y',strtotime($sampai));
         }else{
-            $query=mysql_query("select b.nama, count(*) as jumlah from surat a, pegawai b where a.posting = b.idpegawai and a.`delete`='0' group by a.posting");    
+            $query=mysql_query("select b.nama, count(*) as jumlah 
+from posting a, pegawai b,surat c 
+where a.idsurat=c.idsurat and a.idpegawai = b.idpegawai and c.`deleted`='0' group by a.idpegawai");    
            
         }
         
@@ -337,7 +339,7 @@ if(isset($_GET['as'])){
                 
             //}
             
-            $pdf->Output();
+            $pdf->Output('Laporan terbaru.pdf','D');
     }
 }           
 
